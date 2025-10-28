@@ -153,7 +153,6 @@ FILE_LIST=(
     "$ROOT/.bender/git/checkouts/apb-e3aa324d02239b4e/src/apb_demux.sv"
     "$ROOT/.bender/git/checkouts/apb-e3aa324d02239b4e/src/apb_test.sv"
     "$ROOT/.bender/git/checkouts/apb-e3aa324d02239b4e/test/tb_apb_regs.sv"
-    "$ROOT/.bender/git/checkouts/apb-e3aa324d02239b4e/test/tb_apb_cdc.sv"
     "$ROOT/.bender/git/checkouts/apb-e3aa324d02239b4e/test/tb_apb_demux.sv"
     "$ROOT/.bender/git/checkouts/axi-b93d0d6a6eea0215/src/axi_pkg.sv"
     "$ROOT/.bender/git/checkouts/axi-b93d0d6a6eea0215/src/axi_intf.sv"
@@ -228,7 +227,6 @@ FILE_LIST=(
     "$ROOT/.bender/git/checkouts/axi-b93d0d6a6eea0215/test/tb_axi_lite_dw_converter.sv"
     "$ROOT/.bender/git/checkouts/axi-b93d0d6a6eea0215/test/tb_axi_lite_mailbox.sv"
     "$ROOT/.bender/git/checkouts/axi-b93d0d6a6eea0215/test/tb_axi_lite_regs.sv"
-    "$ROOT/.bender/git/checkouts/axi-b93d0d6a6eea0215/test/tb_axi_iw_converter.sv"
     "$ROOT/.bender/git/checkouts/axi-b93d0d6a6eea0215/test/tb_axi_lite_to_apb.sv"
     "$ROOT/.bender/git/checkouts/axi-b93d0d6a6eea0215/test/tb_axi_lite_to_axi.sv"
     "$ROOT/.bender/git/checkouts/axi-b93d0d6a6eea0215/test/tb_axi_lite_xbar.sv"
@@ -238,7 +236,6 @@ FILE_LIST=(
     "$ROOT/.bender/git/checkouts/axi-b93d0d6a6eea0215/test/tb_axi_slave_compare.sv"
     "$ROOT/.bender/git/checkouts/axi-b93d0d6a6eea0215/test/tb_axi_to_axi_lite.sv"
     "$ROOT/.bender/git/checkouts/axi-b93d0d6a6eea0215/test/tb_axi_to_mem_banked.sv"
-    "$ROOT/.bender/git/checkouts/axi-b93d0d6a6eea0215/test/tb_axi_xbar.sv"
     "$ROOT/.bender/git/checkouts/fpu_div_sqrt_mvp-c0861efbed98e78c/hdl/defs_div_sqrt_mvp.sv"
     "$ROOT/.bender/git/checkouts/fpu_div_sqrt_mvp-c0861efbed98e78c/hdl/iteration_div_sqrt_mvp.sv"
     "$ROOT/.bender/git/checkouts/fpu_div_sqrt_mvp-c0861efbed98e78c/hdl/control_mvp.sv"
@@ -367,10 +364,6 @@ FILE_LIST=(
     "$ROOT/.bender/git/checkouts/axi_riscv_atomics-8c70eb866aff31c0/src/axi_riscv_amos_wrap.sv"
     "$ROOT/.bender/git/checkouts/axi_riscv_atomics-8c70eb866aff31c0/src/axi_riscv_atomics_wrap.sv"
     "$ROOT/.bender/git/checkouts/axi_riscv_atomics-8c70eb866aff31c0/src/axi_riscv_atomics_structs.sv"
-    "$ROOT/.bender/git/checkouts/axi_riscv_atomics-8c70eb866aff31c0/test/tb_axi_pkg.sv"
-    "$ROOT/.bender/git/checkouts/axi_riscv_atomics-8c70eb866aff31c0/test/golden_memory.sv"
-    "$ROOT/.bender/git/checkouts/axi_riscv_atomics-8c70eb866aff31c0/test/axi_riscv_atomics_tb.sv"
-    "$ROOT/.bender/git/checkouts/axi_riscv_atomics-8c70eb866aff31c0/test/axi_riscv_lrsc_tb.sv"
     "$ROOT/.bender/git/checkouts/axi_rt-3edb1eb4a82b5fc1/src/regs/axi_rt_reg_pkg.sv"
     "$ROOT/.bender/git/checkouts/axi_rt-3edb1eb4a82b5fc1/src/axi_gran_burst_splitter_counters.sv"
     "$ROOT/.bender/git/checkouts/axi_rt-3edb1eb4a82b5fc1/src/axi_rt_unit_counter.sv"
@@ -383,7 +376,6 @@ FILE_LIST=(
     "$ROOT/.bender/git/checkouts/axi_rt-3edb1eb4a82b5fc1/src/axi_rt_unit.sv"
     "$ROOT/.bender/git/checkouts/axi_rt-3edb1eb4a82b5fc1/src/axi_rt_unit_top.sv"
     "$ROOT/.bender/git/checkouts/axi_rt-3edb1eb4a82b5fc1/src/axi_rt_unit_top_synth.sv"
-    "$ROOT/.bender/git/checkouts/axi_rt-3edb1eb4a82b5fc1/test/tb_axi_rt_unit_top.sv"
     "$ROOT/.bender/git/checkouts/axi_vga-339b0a6167668249/src/axi_vga_reg_pkg.sv"
     "$ROOT/.bender/git/checkouts/axi_vga-339b0a6167668249/src/axi_vga_reg_top.sv"
     "$ROOT/.bender/git/checkouts/axi_vga-339b0a6167668249/src/axi_vga_timing_fsm.sv"
@@ -651,9 +643,16 @@ DEFINES=(
 )
 
 xrun -sv -64bit -nonotifier \
+    -elaborate \
     -timescale 1ns/1ps \
     -access +rwc \
+    -ALLOWREDEFINITION \
+    -newperf -plusperf \
+    -namemap_mixgen \
     -disable_sem2009 \
+    -relax \
+    -v93 \
+    -top tb_cheshire_soc \
     "${DEFINES[@]}" \
     "${INC_DIRS[@]}" \
     "${FILE_LIST[@]}"
