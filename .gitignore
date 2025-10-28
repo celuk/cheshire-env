@@ -1,6 +1,7 @@
 **.direnv/
 */modelsim/*
 **/sim_build
+**/xcelium.d
 *_prove/
 **_pycache_*
 **/transcript
