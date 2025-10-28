@@ -655,4 +655,5 @@ xrun -sv -64bit -nonotifier \
     -top tb_cheshire_soc \
     "${DEFINES[@]}" \
     "${INC_DIRS[@]}" \
-    "${FILE_LIST[@]}"
+    "${FILE_LIST[@]}" \
+    ../src/elfloader.cpp
