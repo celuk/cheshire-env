@@ -1,0 +1,3 @@
+[submodule "cheshire"]
+	path = cheshire
+	url = https://github.com/pulp-platform/cheshire
