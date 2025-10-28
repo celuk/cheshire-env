@@ -12,8 +12,19 @@
           config.allowUnfree = true;
         };
 
-        riscv_toolchain = pkgs.pkgsCross.riscv64-embedded.buildPackages;
-        #riscv_linux_toolchain = pkgs.pkgsCross.riscv64-linux.buildPackages;
+        #riscv_symlinks = pkgs.runCommand "riscv-unknown-elf-symlinks" {
+        #  nativeBuildInputs = [ riscv_toolchain.gcc riscv_toolchain.binutils ];
+        #} ''
+        #  mkdir -p $out/bin
+        #  GCC_BIN=${riscv_toolchain.gcc}/bin
+        #  BINUTILS_BIN=${riscv_toolchain.binutils}/bin
+        #  for tool in gcc g++; do
+        #    ln -s "$GCC_BIN/riscv64-none-elf-$tool" "$out/bin/riscv64-unknown-elf-$tool"
+        #  done
+        #  for tool in as ar ld objcopy objdump ranlib readelf strip; do
+        #    ln -s "$BINUTILS_BIN/riscv64-none-elf-$tool" "$out/bin/riscv64-unknown-elf-$tool"
+        #  done
+        #'';
 
         #markdown_grid_tables = pkgs.python311Packages.buildPythonPackage rec {
         #  pname = "markdown-grid-tables";
@@ -78,22 +89,26 @@
         devShells.default = pkgs.mkShell {
           shellHook = ''
             export CSMITH_INCLUDE=${pkgs.csmith}/include/${pkgs.csmith.name}
-            export RISCV=${riscv_toolchain.gcc}
-            export RISCV_PREFIX=${riscv_toolchain.gcc}/bin/riscv64-none-elf-
-            export RISCVTYPE=${riscv_toolchain.gcc}/bin/riscv64-none-elf
+            export RISCV=${(pkgs.callPackage ./nix/riscv-gcc.nix { })}
+            export RISCV_PREFIX=${(pkgs.callPackage ./nix/riscv-gcc.nix { })}/bin/riscv64-unknown-elf-
+            export RISCVTYPE=${(pkgs.callPackage ./nix/riscv-gcc.nix { })}/bin/riscv64-unknown-elf
             export BENDER=bender
             export CXX_PATH=g++
-            export CHS_SW_GCC_BINROOT=${riscv_toolchain.gcc}/bin
+            export CHS_SW_GCC_BINROOT=${(pkgs.callPackage ./nix/riscv-gcc.nix { })}/bin
             export CHS_SW_DTC=dtc
-            export PATH=${riscv_toolchain.gcc}/bin:$PATH
+            export NIX_PYTHONPATH=$PYTHONPATH
+            export PATH=${(pkgs.callPackage ./nix/riscv-gcc.nix { })}/bin:$PATH
           '';
           packages = [
             pkgs.bashInteractive
 
-            riscv_toolchain.gcc
-            riscv_toolchain.stdenv.cc
+            (pkgs.pkgsCross.riscv64-embedded.buildPackages.gcc)
+
+            pkgs.pkgsCross.riscv64-embedded.stdenv.cc
 
             #riscv_linux_toolchain.gcc
+
+            #riscv_symlinks
 
             pkgs.autoconf
             pkgs.csmith

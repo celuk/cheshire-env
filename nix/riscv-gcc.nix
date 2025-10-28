@@ -1,18 +1,18 @@
 { pkgs }:
 pkgs.stdenv.mkDerivation {
-  pname = "riscv-rv32i-toolchain";
-  version = "9.2.0";
+  pname = "riscv-rv64gc-toolchain";
+  version = "2025.10.28";
   src = pkgs.fetchFromGitHub {
     owner = "riscv";
     repo = "riscv-gnu-toolchain";
-    rev = "a03290eab661e2aa58288ad164f908bbbcc2169c";
+    rev = "13385f4f06d67efe7c204955658cbec166757dce";
     sha256 = "sha256-QTjDc7uqnJP3bUo1h2s++yQGKiuAJVY1j+6BVMWb9gU=";
     fetchSubmodules = true;
   };
 
   configureFlags = [
-    "--with-arch=rv32imc"
-    "--with-abi=ilp32"
+    "--with-arch=rv64imafdc"
+    "--with-abi=lp64d"
   ];
 
   installPhase = ":"; # 'make' installs on its own
