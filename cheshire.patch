@@ -1,0 +1,71 @@
+diff --git a/hw/cheshire_soc.sv b/hw/cheshire_soc.sv
+index b3b6254..92cdcef 100644
+--- a/hw/cheshire_soc.sv
++++ b/hw/cheshire_soc.sv
+@@ -209,6 +209,8 @@ module cheshire_soc import cheshire_pkg::*; #(
+     addr_t end_addr;
+   } addr_rule_t;
+ 
++  // Xcelium complains about it
++  /*
+   // Generate address map
+   function automatic addr_rule_t [AxiOut.num_rules-1:0] gen_axi_map();
+     addr_rule_t [AxiOut.num_rules-1:0] ret;
+@@ -219,6 +221,17 @@ module cheshire_soc import cheshire_pkg::*; #(
+   endfunction
+ 
+   localparam addr_rule_t [AxiOut.num_rules-1:0] AxiMap = gen_axi_map();
++  */
++
++  wire addr_rule_t [AxiOut.num_rules-1:0] AxiMap;
++  genvar i_axi;
++  generate
++    for (i_axi = 0; i_axi < AxiOut.num_rules; i_axi++) begin : gen_axi_map
++      assign AxiMap[i_axi] = '{idx: AxiOut.map[i_axi].idx,
++                              start_addr: AxiOut.map[i_axi].start,
++                              end_addr: AxiOut.map[i_axi].pte};
++    end
++  endgenerate
+ 
+   // Connectivity of Xbar
+   axi_mst_req_t [AxiIn.num_in-1:0]    axi_in_req, axi_rt_in_req;
+@@ -297,6 +310,8 @@ module cheshire_soc import cheshire_pkg::*; #(
+   // Generate indices and get maps for all ports
+   localparam reg_out_t  RegOut = gen_reg_out(Cfg);
+ 
++  // Xcelium complains about it
++  /*
+   // Generate Reg address map
+   function automatic addr_rule_t [RegOut.num_rules-1:0] gen_reg_map();
+     addr_rule_t [RegOut.num_rules-1:0] ret;
+@@ -307,6 +322,17 @@ module cheshire_soc import cheshire_pkg::*; #(
+   endfunction
+ 
+   localparam addr_rule_t [RegOut.num_rules-1:0] RegMap = gen_reg_map();
++  */
++
++  wire addr_rule_t [RegOut.num_rules-1:0] RegMap;
++  genvar i_reg;
++  generate
++    for (i_reg = 0; i_reg < RegOut.num_rules; i_reg++) begin : gen_reg_map
++      assign RegMap[i_reg] = '{idx: RegOut.map[i_reg].idx,
++                              start_addr: RegOut.map[i_reg].start,
++                              end_addr: RegOut.map[i_reg].pte};
++    end
++  endgenerate
+ 
+   logic [cf_math_pkg::idx_width(RegOut.num_out)-1:0] reg_select;
+ 
+diff --git a/sw/sw.mk b/sw/sw.mk
+index baa9ee4..a21618c 100644
+--- a/sw/sw.mk
++++ b/sw/sw.mk
+@@ -23,7 +23,7 @@ CHS_SW_DTB_TGUID := BA442F61-2AEF-42DE-9233-E4D75D3ACB9D
+ CHS_SW_FW_TGUID  := 99EC86DA-3F5B-4B0D-8F4B-C4BACFA5F859
+ CHS_SW_DISK_SIZE ?= 16M
+ 
+-CHS_SW_FLAGS   ?= -DOT_PLATFORM_RV32 -march=rv64gc_zifencei -mabi=lp64d -mstrict-align -O2 -Wall -Wextra -static -ffunction-sections -fdata-sections -frandom-seed=cheshire -fuse-linker-plugin -flto -Wl,-flto
++CHS_SW_FLAGS   ?= -DOT_PLATFORM_RV32 -march=rv64gc -mabi=lp64d -mstrict-align -O2 -Wall -Wextra -static -ffunction-sections -fdata-sections -frandom-seed=cheshire -fuse-linker-plugin -flto -Wl,-flto
+ CHS_SW_CCFLAGS ?= $(CHS_SW_FLAGS) -ggdb -mcmodel=medany -mexplicit-relocs -fno-builtin -fverbose-asm -pipe
+ CHS_SW_LDFLAGS ?= $(CHS_SW_FLAGS) -nostartfiles -Wl,--gc-sections -Wl,-L$(CHS_SW_LD_DIR)
+ CHS_SW_ARFLAGS ?= --plugin=$(CHS_SW_LTOPLUG)

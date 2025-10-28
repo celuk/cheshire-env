@@ -27,6 +27,7 @@ vivado/compiled-libs/*
 
 typescript*
 
-.simvision/*
+**/.simvision/**
+**/*.shm/**
 
 temp/*

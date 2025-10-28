@@ -21,4 +21,4 @@ COLOR_NC='\e[0m'
 COLOR_BLUE='\e[0;34m'
 
 printf ${COLOR_BLUE}"xrun -R ${pargs}"${COLOR_NC}"\n"
-xrun -R ${pargs} | tee simulate.log
+xrun -R -input waves.tcl ${pargs} | tee simulate.log
