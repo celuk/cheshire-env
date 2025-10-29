@@ -2,7 +2,7 @@ import argparse
 import sys
 from collections import OrderedDict
 
-BASE_ADDRESS = 0x80000000
+BASE_ADDRESS = 0x00000000
 KERNEL_OFFSET = 0x00400000
 DTB_OFFSET = 0x01400000
 

@@ -434,7 +434,10 @@ module ddr3 (
         // Preload section
     `ifdef mem_init
         //in = $fopen("mem_init.txt","r");
-        in = $fopen("/home/shc/projects/cva-soc/tests/demo/demo_mem_init.txt","r");
+        
+        in = $fopen("/home/shc/projects/cheshire-env/cheshire/sw/tests/helloworld.mem_init.txt","r");
+        
+        //in = $fopen("/home/shc/projects/cva-soc/tests/demo/demo_mem_init.txt","r");
         //in = $fopen("/home/shc/projects/riscv-linux-boot/opensbi/build/platform/template/firmware/fw_dynamic_mem_init.txt","r");
         
         //in = $fopen("/home/shc/projects/clones/riscv-opensbi-port/build/platform/template/firmware/fw_dynamic_mem_init.txt","r");

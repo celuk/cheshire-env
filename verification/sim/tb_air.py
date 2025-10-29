@@ -189,56 +189,24 @@ signal.signal(signal.SIGINT, signal_handler)
 
 @cocotb.coroutine
 async def main_memory(dut, clk, start_address):
-    dut.vip.set_boot_mode(BOOTMODE)
-    dut.vip.wait_for_reset()
-    exit_code = 0
+    dut.boot_mode_i.value = BOOTMODE
+    await RisingEdge(clk)
+    dut.rst_ni.value = 0
+    await RisingEdge(clk)
+    dut.rst_ni.value = 1
 
-    if BOOTMODE == 0:
-        # Idle boot: preload with the specified mode
-        if PRELMODE == 0:
-            # JTAG mode
-            print("[Boot] Using JTAG preload mode")
-            dut.vip.jtag_init()
-            dut.vip.jtag_elf_run(BINARY)
-            await dut.vip.jtag_wait_for_eoc(exit_code)
-        elif PRELMODE == 1:
-            # Serial Link mode
-            print("[Boot] Using Serial Link preload mode")
-            dut.vip.slink_elf_run(BINARY)
-            await dut.vip.slink_wait_for_eoc(exit_code)
-        elif PRELMODE == 2:
-            # UART mode
-            print("[Boot] Using UART preload mode")
-            await dut.vip.uart_debug_elf_run_and_wait(BINARY, exit_code)
-        else:
-            raise ValueError(f"Unsupported preload mode {PRELMODE} (reserved)!")
-    elif BOOTMODE == 1:
-        raise ValueError(f"Unsupported boot mode {BOOTMODE} (SD Card)!")
-    else:
-        # Autonomous boot: Only poll return code
-        print("[Boot] Using autonomous boot mode")
-        dut.vip.jtag_init()
-        await dut.vip.jtag_wait_for_eoc(exit_code)
-    
-    # Wait for the UART to finish reading the current byte
+    global timeout
     while True:
         try:
-            await dut.vip.uart_reading_byte == 0
+            await RisingEdge(clk)
             if timeout > TIMEOUT:
                 break
             timeout += 1
         except:
             pass
-    
-    #print(f"\n[Test] Completed with exit code: {exit_code}")
-    #
-    #if exit_code != 0:
-    #    raise cocotb.result.TestFailure(f"Test failed with exit code {exit_code}")
 
 @cocotb.test()
 async def tair(dut):
-    #await read_instructions()
-
     ## start address of hex file not boot address
     ## boot address is 0x80 always but the hex file start address can be different
     start_address = 0x00000000
@@ -247,34 +215,34 @@ async def tair(dut):
     clk_ns = 5
     baud_rate = 115200
 
-    #if hasattr(dut, "clk_p") and hasattr(dut, "clk_n"):
-    #    clk_ns = 5
-    #    # drive the positive pin
-    #    clk = dut.clk_p
-    #    cocotb.start_soon(Clock(clk, clk_ns, "ns").start(start_high=False))
-#
-    #    # in parallel, tie clk_n to the inverse of clk_p
-    #    async def drive_inverted():
-    #        # initialise
-    #        dut.clk_n.value = 1
-    #        while True:
-    #            await RisingEdge(clk)
-    #            dut.clk_n.value = 0
-    #            await FallingEdge(clk)
-    #            dut.clk_n.value = 1
-#
-    #    cocotb.start_soon(drive_inverted())
-#
-    #else:
-    #    # fallback to single-ended
-    #    clk = dut.clk
-    #    cocotb.start_soon(Clock(clk, clk_ns, "ns").start(start_high=False))
+    if hasattr(dut, "clk_p") and hasattr(dut, "clk_n"):
+        clk_ns = 5
+        # drive the positive pin
+        clk = dut.clk_p
+        cocotb.start_soon(Clock(clk, clk_ns, "ns").start(start_high=False))
 
-    #dut.rst_ni.value = 0
-    #await RisingEdge(clk)
-    #await RisingEdge(clk)
-    #dut.rst_ni.value = 1
-    cocotb.start_soon(uart_monitor(dut, dut.clk, clk_ns, baud_rate))
-    blk = cocotb.start_soon(main_memory(dut, dut.clk, start_address))
+        # in parallel, tie clk_n to the inverse of clk_p
+        async def drive_inverted():
+            # initialise
+            dut.clk_n.value = 1
+            while True:
+                await RisingEdge(clk)
+                dut.clk_n.value = 0
+                await FallingEdge(clk)
+                dut.clk_n.value = 1
+
+        cocotb.start_soon(drive_inverted())
+
+    else:
+        # fallback to single-ended
+        clk = dut.clk
+        cocotb.start_soon(Clock(clk, clk_ns, "ns").start(start_high=False))
+
+    dut.rst_ni.value = 0
+    await RisingEdge(clk)
+    await RisingEdge(clk)
+    dut.rst_ni.value = 1
+    cocotb.start_soon(uart_monitor(dut, clk, clk_ns, baud_rate))
+    blk = cocotb.start_soon(main_memory(dut, clk, start_address))
     await blk
     print()

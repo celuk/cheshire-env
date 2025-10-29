@@ -2,17 +2,23 @@
 
 `include "cheshire/typedef.svh"
 
-`define DRAM_SIM
-`define SIM
+`include "header.vh"
+
+//`default_nettype none
 
 module cheshire_soc_wrap import cheshire_pkg::*; #(
   parameter int unsigned SelectedCfg = 32'd0,
   parameter bit          UseDramSys  = 1'b0,
   parameter time          ClkPeriodRtc      = 30518ns,
-  parameter int unsigned  RstCycles         = 5,
+  parameter int unsigned  RstCycles         = 5
 )
 (
-  input  logic clk_i,
+  `ifdef ZC706
+  input  wire clk_p,
+  input  wire clk_n,
+  `else
+  input wire clk_i,
+  `endif
   input  logic rst_ni,
   input  logic [1:0] boot_mode_i,
 
@@ -36,11 +42,11 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
   input  logic [SlinkNumChan-1:0]                    slink_rcv_clk_i,
   output logic [SlinkNumChan-1:0]                    slink_rcv_clk_o,
   input  logic [SlinkNumChan-1:0][SlinkNumLanes-1:0]  slink_i,
-  output logic [SlinkNumChan-1:0][SlinkNumLanes-1:0]  slink_o,
+  output logic [SlinkNumChan-1:0][SlinkNumLanes-1:0]  slink_o
 
 `ifndef DRAM_SIM
   // DDR3 Interface
-  output logic ddr3_reset_n,
+  ,output logic ddr3_reset_n,
   output logic ddr3_cke,
   output logic ddr3_ck_p,
   output logic ddr3_ck_n,
@@ -56,7 +62,53 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
   inout  logic [1:0] ddr3_dqs_n,
   inout  logic [15:0] ddr3_dq
 `endif
+
+  ,input wire uart_dram_write_we_i,
+  input wire [31:0] uart_dram_write_addr_i,
+  input wire [31:0] uart_dram_write_data_i,
+  input wire uart_dram_write_rst_i
 );
+
+  `ifdef BASYS3
+     wire clkwiz_o;
+     wire clkwiz_locked;
+     clk_wiz_0 dutclk (
+        .clk_out1(clkwiz_o),
+        .clk_in1(clk_i),
+        .reset(~rst_ni),
+        .locked(clkwiz_locked)
+     );
+     wire rst_n = rst_ni & clkwiz_locked;
+  `elsif ZC706
+     wire pll_locked;
+     wire clk100;
+     wire clk_ddr;
+     wire clk_ref;
+     wire clk_ddr_dqs;
+     wire clk_i;
+     clk_wiz_0 u_pll
+     //clk_wiz_1 u_pll
+     (
+        .clk_in1_p(clk_p),
+        .clk_in1_n(clk_n)
+
+        ,.reset(~rst_ni)
+
+        // first values for 100mhz, second values for 50mhz
+        ,.clk_out1(clk100)      // 100, 50
+        ,.clk_out2(clk_ddr)     // 400, 200
+        ,.clk_out3(clk_ref)     // 200, 200
+        ,.clk_out4(clk_ddr_dqs) // 400, 200 (phase 90)
+        ,.clk_out5(clk_i)       // 100, 50
+        ,.locked(pll_locked)
+     );
+
+     wire clkwiz_o = clk_i;
+     wire rst_n = rst_ni & pll_locked; // & !uart_dram_mode
+  `else
+     wire clkwiz_o = clk_i;
+     wire rst_n = rst_ni;
+  `endif
 
   logic test_mode = 0;
   
@@ -107,10 +159,10 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
     .reg_ext_req_t      ( reg_req_t ),
     .reg_ext_rsp_t      ( reg_rsp_t )
   ) csoc (
-    .clk_i              ( clk       ),
+    .clk_i              ( clkwiz_o       ),
     .rst_ni             ( rst_n     ),
     .test_mode_i        ( test_mode ),
-    .boot_mode_i        ( boot_mode ),
+    .boot_mode_i        ( boot_mode_i ),
     .rtc_i              ( rtc       ),
     .axi_llc_mst_req_o  ( axi_llc_mst_req ),
     .axi_llc_mst_rsp_i  ( axi_llc_mst_rsp ),
@@ -222,8 +274,78 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
       .tdqs_n (),
       .odt    (ddr3_odt)
     );
-  `else
-    
   `endif
+
+  dram_controller_axi #(
+    .AXI_ID_WIDTH  ( WrapCfg.AxiMstIdWidth ),
+    .AXI_ADDR_WIDTH( WrapCfg.AddrWidth ),
+    .AXI_DATA_WIDTH( WrapCfg.AxiDataWidth ),
+    .WB_ADDR_WIDTH ( 32 )
+  ) dram_controller (
+    .clk_i(clkwiz_o),
+    .rst_ni(rst_n),
+
+    .s_axi_awvalid(axi_llc_mst_req.aw_valid),
+    .s_axi_awready(axi_llc_mst_rsp.aw_ready),
+    .s_axi_awaddr(axi_llc_mst_req.aw.addr),
+    .s_axi_awid(axi_llc_mst_req.aw.id),
+    .s_axi_awlen(axi_llc_mst_req.aw.len),
+    .s_axi_awsize(axi_llc_mst_req.aw.size),
+    .s_axi_awburst(axi_llc_mst_req.aw.burst),
+    .s_axi_awprot(axi_llc_mst_req.aw.prot),
+
+    .s_axi_wvalid(axi_llc_mst_req.w_valid),
+    .s_axi_wready(axi_llc_mst_rsp.w_ready),
+    .s_axi_wdata(axi_llc_mst_req.w.data),
+    .s_axi_wstrb(axi_llc_mst_req.w.strb),
+    .s_axi_wlast(axi_llc_mst_req.w.last),
+
+    .s_axi_bvalid(axi_llc_mst_rsp.b_valid),
+    .s_axi_bready(axi_llc_mst_req.b_ready),
+    .s_axi_bid(axi_llc_mst_rsp.b.id),
+    .s_axi_bresp(axi_llc_mst_rsp.b.resp),
+
+    .s_axi_arvalid(axi_llc_mst_req.ar_valid),
+    .s_axi_arready(axi_llc_mst_rsp.ar_ready),
+    .s_axi_araddr(axi_llc_mst_req.ar.addr),
+    .s_axi_arid(axi_llc_mst_req.ar.id),
+    .s_axi_arlen(axi_llc_mst_req.ar.len),
+    .s_axi_arsize(axi_llc_mst_req.ar.size),
+    .s_axi_arburst(axi_llc_mst_req.ar.burst),
+    .s_axi_arprot(axi_llc_mst_req.ar.prot),
+
+    .s_axi_rvalid(axi_llc_mst_rsp.r_valid),
+    .s_axi_rready(axi_llc_mst_req.r_ready),
+    .s_axi_rid(axi_llc_mst_rsp.r.id),
+    .s_axi_rdata(axi_llc_mst_rsp.r.data),
+    .s_axi_rresp(axi_llc_mst_rsp.r.resp),
+    .s_axi_rlast(axi_llc_mst_rsp.r.last),
+
+    .ddr3_reset_n(ddr3_reset_n),
+    .ddr3_cke(ddr3_cke),
+    .ddr3_ck_p(ddr3_ck_p),
+    .ddr3_ck_n(ddr3_ck_n),
+    .ddr3_cs_n(ddr3_cs_n),
+    .ddr3_ras_n(ddr3_ras_n),
+    .ddr3_cas_n(ddr3_cas_n),
+    .ddr3_we_n(ddr3_we_n),
+    .ddr3_ba(ddr3_ba),
+    .ddr3_addr(ddr3_addr),
+    .ddr3_odt(ddr3_odt),
+    .ddr3_dm(ddr3_dm),
+    .ddr3_dqs_p(ddr3_dqs_p),
+    .ddr3_dqs_n(ddr3_dqs_n),
+    .ddr3_dq(ddr3_dq),
+
+    .clk100(clk100),
+    .clk_ddr(clk_ddr),
+    .clk_ref(clk_ref),
+    .clk_ddr_dqs(clk_ddr_dqs),
+
+    .uart_dram_write_we_i(uart_dram_write_we_i),
+    .uart_dram_write_addr_i(uart_dram_write_addr_i),
+    .uart_dram_write_data_i(uart_dram_write_data_i),
+    .uart_dram_write_rst_i(uart_dram_write_rst_i)
+  );
 
 endmodule

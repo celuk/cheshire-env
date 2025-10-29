@@ -647,13 +647,22 @@ INC_DIRS = [
 ]
 
 def run_test(simulator: str, test_file: Path, top_module: str, waves: bool, cfile: str):
+    rtl_dir = Path(SCRIPT_DIR / "../../rtl")
     sim_dir = Path(SCRIPT_DIR / "../../rtl/sim")
 
     verilog_files = FILE_LIST
 
     verilog_sources = (
         list(verilog_files)
-        #+ list(["../../vivado/cva_soc_zc706/cva_soc_zc706.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_sim_netlist.v"])
+        + list(["../../rtl/src/cheshire_soc_wrap.sv"])
+        + list(["../../rtl/src/ddr3_controller.sv"])
+        + list(["../../rtl/src/ddr3_core.sv"])
+        + list(["../../rtl/src/ddr3_dfi_phy.sv"])
+        + list(["../../rtl/src/ddr3_dfi_seq.sv"])
+        + list(["../../rtl/src/dram_controller_axi.sv"])
+        + list(["../../rtl/src/dram_controller_wb.sv"])
+        + list(["../../rtl/sim/ddr3.v"])
+        + list(["../../rtl/vivado_ip/clk_wiz_0_sim_netlist.v"])
         + list(["/tools/Xilinx/Vivado/2022.2/data/verilog/src/glbl.v"])
         + list(["/tools/Xilinx/Vivado/2022.2/data/verilog/src/unisims/OBUFDS.v"])
         + list(["/tools/Xilinx/Vivado/2022.2/data/verilog/src/unisims/IOBUFDS.v"])
@@ -677,6 +686,7 @@ def run_test(simulator: str, test_file: Path, top_module: str, waves: bool, cfil
 
     include_dirs.extend(list(INC_DIRS))
 
+    include_dirs.extend([rtl_dir])
     include_dirs.extend([sim_dir])
 
     print("\nINCLUDE_DIRS:")
@@ -745,7 +755,7 @@ def run_test(simulator: str, test_file: Path, top_module: str, waves: bool, cfil
         runner_build_args = [
                              #"-f", "/tools/Xilinx/Vivado/2022.2/data/secureip/secureip_cell.list.f",
                              "-newperf", "-plusperf",
-                             #"-top", "glbl",
+                             "-top", "glbl",
                              "-namemap_mixgen", "-verbose", "-access", "+rwc", "-timescale", "1ns/1ps", "-ALLOWREDEFINITION", "-relax", "-sv",
                              "-v93",
         ] #'+incdir+"../../../vivado/cva_soc_zc706/cva_soc_zc706.gen/sources_1/ip/clk_wiz_0"']
@@ -753,7 +763,7 @@ def run_test(simulator: str, test_file: Path, top_module: str, waves: bool, cfil
             runner_build_args.extend(["-f", "/tools/Xilinx/Vivado/2022.2/data/secureip/secureip_cell.list.f"])
         runner_pre_cmd = []
         runner_test_args = ["-newperf", "-plusperf",
-                            #"-top", "glbl",
+                            "-top", "glbl",
                             "-verbose", "-access", "+rwc", "-timescale", "1ns/1ps", "-pre_input", "../pre_input.tcl",
                             f"+BOOTMODE={BOOTMODE.__str__()} +PRELMODE={PRELMODE.__str__()} +BINARY={BINARY}"] #["set probe_packed_limit 131072; set probe_unpacked_limit 131072;"] #["probe -create -packed 131072 *;"]
 
