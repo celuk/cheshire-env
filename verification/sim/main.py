@@ -661,6 +661,7 @@ def run_test(simulator: str, test_file: Path, top_module: str, waves: bool, cfil
         + list(["../../rtl/src/ddr3_dfi_seq.sv"])
         + list(["../../rtl/src/dram_controller_axi.sv"])
         + list(["../../rtl/src/dram_controller_wb.sv"])
+        + list(["../../rtl/src/boot_from_dram.sv"])
         + list(["../../rtl/sim/ddr3.v"])
         + list(["../../rtl/vivado_ip/clk_wiz_0_sim_netlist.v"])
         + list(["/tools/Xilinx/Vivado/2022.2/data/verilog/src/glbl.v"])

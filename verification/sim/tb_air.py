@@ -189,7 +189,6 @@ signal.signal(signal.SIGINT, signal_handler)
 
 @cocotb.coroutine
 async def main_memory(dut, clk, start_address):
-    dut.boot_mode_i.value = BOOTMODE
     await RisingEdge(clk)
     dut.rst_ni.value = 0
     await RisingEdge(clk)
@@ -207,6 +206,8 @@ async def main_memory(dut, clk, start_address):
 
 @cocotb.test()
 async def tair(dut):
+    dut.boot_mode_i.value = BOOTMODE
+    
     ## start address of hex file not boot address
     ## boot address is 0x80 always but the hex file start address can be different
     start_address = 0x00000000
