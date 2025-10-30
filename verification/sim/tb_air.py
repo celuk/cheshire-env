@@ -7,6 +7,7 @@ from cocotb.clock import Clock
 from cocotb.handle import SimHandleBase
 from cocotb.queue import Queue
 from cocotb.triggers import RisingEdge, FallingEdge, Edge, ClockCycles, Timer
+from cocotbext.jtag import JTAGDriver, JTAGBus, JTAGDevice
 
 BINARY="../../../cheshire/sw/tests/helloworld.spm.elf"
 BOOTMODE=0
@@ -177,6 +178,99 @@ def extract_address_fields_rbc(addr, BA_BITS, ROW_BITS, COL_BITS):
 
     return row, bank, col
 
+IR_DMI = 0x11
+DMI_DMCONTROL_ADDR = 0x10
+DMI_DMSTATUS_ADDR = 0x11
+DMI_DATA0_ADDR = 0x04
+DMI_COMMAND_ADDR = 0x17
+DMI_OP_WRITE = 2
+DMI_OP_READ = 1
+DMI_OP_NOP = 0
+
+DMI_REG_NAME = "DMI_REG"
+
+class RiscvDebug:
+    def __init__(self, jtag_driver: JTAGDriver, device_num: int):
+        self.jtag = jtag_driver
+        self.log = jtag_driver.log
+        self.dev_num = device_num
+
+    async def dmi_op(self, addr, op, data):
+        dmi_packet = (op << 40) | (data << 8) | (addr << 1) | DMI_OP_NOP
+
+        if op == DMI_OP_WRITE:
+            await self.jtag.write(DMI_REG_NAME, dmi_packet, device=self.dev_num)
+            return 0
+        else:
+            tdo = await self.jtag.read(DMI_REG_NAME, dmi_packet, device=self.dev_num)
+            op_status = tdo & 0b11
+            if op_status != 0:
+                self.log.error(f"DMI operation failed! Status: {op_status}")
+            return (tdo >> 2) & 0xFFFFFFFF
+
+    async def dmi_write(self, addr, data):
+        await self.dmi_op(addr, DMI_OP_WRITE, data)
+
+    async def dmi_read(self, addr):
+        return await self.dmi_op(addr, DMI_OP_READ, 0)
+
+    async def halt_core(self):
+        await self.dmi_write(DMI_DMCONTROL_ADDR, 0x80000001)
+        for _ in range(10):
+            status = await self.dmi_read(DMI_DMSTATUS_ADDR)
+            if status & (1 << 9):
+                self.log.info("Core is halted.")
+                return
+        self.log.error("Failed to halt core.")
+
+    async def resume_core(self):
+        await self.dmi_write(DMI_DMCONTROL_ADDR, 0x40000001)
+
+    async def write_memory_word(self, address, data):
+        await self.dmi_write(DMI_DATA0_ADDR, address)
+        await self.dmi_write(DMI_DATA0_ADDR + 1, data)
+        command = (2 << 20) | (1 << 17) | (1 << 16)
+        await self.dmi_write(DMI_COMMAND_ADDR, command)
+        for _ in range(10):
+            status = await self.dmi_read(DMI_DMSTATUS_ADDR)
+            if (status >> 10) & 0b111 == 0:
+                self.log.info(f"Data 0x{data:08X} is written to address 0x{address:08X}")
+                return
+        self.log.error(f"Write memory command failed for address 0x{address:08X}")
+
+@cocotb.test()
+async def test_write_scratch_regs_via_jtag(dut):
+    jtag_bus = JTAGBus(
+        entity=dut,
+        signals={"tck": "jtag_tck", "tms": "jtag_tms", "tdi": "jtag_tdi", "tdo": "jtag_tdo", "trst": "jtag_trst_n"}
+    )
+    jtag_driver = JTAGDriver(bus=jtag_bus, period=100, unit="ns")
+
+    riscv_debug_device = JTAGDevice(ir_len=5)
+    riscv_debug_device.add_jtag_reg(name=DMI_REG_NAME, width=42, address=IR_DMI)
+    jtag_driver.add_device(riscv_debug_device)
+
+    debugger = RiscvDebug(jtag_driver, device_num=0)
+
+    dut.rst_ni.value = 0
+    await Timer(20, units="ns")
+    dut.rst_ni.value = 1
+
+    await jtag_driver.set_reset(1)
+    await jtag_driver.reset_finished()
+    await jtag_driver.set_reset(0)
+    await jtag_driver.reset_fsm()
+
+    await debugger.halt_core()
+
+    await debugger.write_memory_word(0x03000000, 0x80000000)
+    await debugger.write_memory_word(0x03000004, 0x00000000)
+    await debugger.write_memory_word(0x03000008, 2)
+
+    await debugger.resume_core()
+
+    await Timer(100, units="ns")
+
 timeout = 0
 
 import signal
@@ -207,7 +301,20 @@ async def main_memory(dut, clk, start_address):
 @cocotb.test()
 async def tair(dut):
     dut.boot_mode_i.value = BOOTMODE
-    
+
+    #bus = JTAGBus(
+    #    entity=dut,
+    #    signals={
+    #        "tck": "jtag_tck",
+    #        "tms": "jtag_tms",
+    #        "tdi": "jtag_tdi",
+    #        "tdo": "jtag_tdo",
+    #        "trst": "jtag_trst_n"
+    #    }
+    #)
+    #jtag_driver = JTAGDriver(bus)
+    #jtag_driver.add_device(JTAGDevice())
+
     ## start address of hex file not boot address
     ## boot address is 0x80 always but the hex file start address can be different
     start_address = 0x00000000
@@ -243,6 +350,13 @@ async def tair(dut):
     await RisingEdge(clk)
     await RisingEdge(clk)
     dut.rst_ni.value = 1
+
+    #await jtag_driver.write(0x03000000, 0x80000000)
+    #await jtag_driver.write(0x03000004, 0x00000000)
+    #await jtag_driver.write(0x03000008, 2)
+
+    await test_write_scratch_regs_via_jtag(dut)
+
     cocotb.start_soon(uart_monitor(dut, clk, clk_ns, baud_rate))
     blk = cocotb.start_soon(main_memory(dut, clk, start_address))
     await blk
