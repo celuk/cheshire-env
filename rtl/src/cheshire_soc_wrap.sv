@@ -147,9 +147,6 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
   logic [3:0]           spih_sd_i;
   logic [3:0]           spih_sd_en;
 
-  reg_req_t  reg_bus_req;
-  reg_rsp_t  reg_bus_rsp;
-
   cheshire_soc #(
     .Cfg                ( WrapCfg ),
     .ExtHartinfo        ( '0 ),
@@ -173,8 +170,8 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
     .axi_ext_mst_rsp_o  ( ),
     .axi_ext_slv_req_o  ( ),
     .axi_ext_slv_rsp_i  ( '0 ),
-    .reg_ext_slv_req_o  ( reg_bus_req ),
-    .reg_ext_slv_rsp_i  ( reg_bus_rsp ),
+    .reg_ext_slv_req_o  (  ),
+    .reg_ext_slv_rsp_i  ( '0 ),
     .intr_ext_i         ( '0 ),
     .intr_ext_o         ( ),
     .xeip_ext_o         ( ),
@@ -230,16 +227,6 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
     .usb_dp_i           ( '0 ),
     .usb_dp_o           ( ),
     .usb_dp_oe_o        ( )
-  );
-
-  boot_from_dram #(
-    .reg_ext_req_t      ( reg_req_t ),
-    .reg_ext_rsp_t      ( reg_rsp_t )
-  ) i_boot_from_dram (
-    .clk_i      (clkwiz_o),
-    .rst_ni     (rst_n),
-    .reg_req_i  (reg_bus_req),
-    .reg_rsp_o  (reg_bus_rsp)
   );
 
   assign i2c_sda = i2c_sda_en ? i2c_sda_o : 1'bz;
