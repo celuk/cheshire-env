@@ -9,6 +9,10 @@ from cocotb.queue import Queue
 from cocotb.triggers import RisingEdge, FallingEdge, Edge, ClockCycles, Timer
 from cocotbext.jtag import JTAGDriver, JTAGBus, JTAGDevice
 
+## dummy patch
+if not hasattr(Timer, 'cbhdl'):
+    Timer.cbhdl = None
+
 BINARY="../../../cheshire/sw/tests/helloworld.spm.elf"
 BOOTMODE=0
 PRELMODE=1
@@ -198,11 +202,12 @@ class RiscvDebug:
     async def dmi_op(self, addr, op, data):
         dmi_packet = (op << 40) | (data << 8) | (addr << 1) | DMI_OP_NOP
 
+        await self.jtag.write(DMI_REG_NAME, dmi_packet, device=self.dev_num)
+        tdo = self.jtag.ret_val
+
         if op == DMI_OP_WRITE:
-            await self.jtag.write(DMI_REG_NAME, dmi_packet, device=self.dev_num)
             return 0
         else:
-            tdo = await self.jtag.read(DMI_REG_NAME, dmi_packet, device=self.dev_num)
             op_status = tdo & 0b11
             if op_status != 0:
                 self.log.error(f"DMI operation failed! Status: {op_status}")
@@ -225,6 +230,7 @@ class RiscvDebug:
 
     async def resume_core(self):
         await self.dmi_write(DMI_DMCONTROL_ADDR, 0x40000001)
+        self.log.info(f"Resuming core...")
 
     async def write_memory_word(self, address, data):
         await self.dmi_write(DMI_DATA0_ADDR, address)
@@ -238,8 +244,8 @@ class RiscvDebug:
                 return
         self.log.error(f"Write memory command failed for address 0x{address:08X}")
 
-@cocotb.test()
-async def test_write_scratch_regs_via_jtag(dut):
+@cocotb.coroutine
+async def test_write_scratch_regs_via_jtag(dut, clk):
     jtag_bus = JTAGBus(
         entity=dut,
         signals={"tck": "jtag_tck", "tms": "jtag_tms", "tdi": "jtag_tdi", "tdo": "jtag_tdo", "trst": "jtag_trst_n"}
@@ -253,7 +259,10 @@ async def test_write_scratch_regs_via_jtag(dut):
     debugger = RiscvDebug(jtag_driver, device_num=0)
 
     dut.rst_ni.value = 0
-    await Timer(20, units="ns")
+    await RisingEdge(clk)
+    await RisingEdge(clk)
+    await RisingEdge(clk)
+    await RisingEdge(clk)
     dut.rst_ni.value = 1
 
     await jtag_driver.set_reset(1)
@@ -269,7 +278,14 @@ async def test_write_scratch_regs_via_jtag(dut):
 
     await debugger.resume_core()
 
-    await Timer(100, units="ns")
+    await RisingEdge(clk)
+    await RisingEdge(clk)
+    await RisingEdge(clk)
+    await RisingEdge(clk)
+    await RisingEdge(clk)
+    await RisingEdge(clk)
+    await RisingEdge(clk)
+    await RisingEdge(clk)
 
 timeout = 0
 
@@ -355,7 +371,8 @@ async def tair(dut):
     #await jtag_driver.write(0x03000004, 0x00000000)
     #await jtag_driver.write(0x03000008, 2)
 
-    await test_write_scratch_regs_via_jtag(dut)
+    setjtag = cocotb.start_soon(test_write_scratch_regs_via_jtag(dut, clk))
+    await setjtag
 
     cocotb.start_soon(uart_monitor(dut, clk, clk_ns, baud_rate))
     blk = cocotb.start_soon(main_memory(dut, clk, start_address))
