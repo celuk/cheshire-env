@@ -371,8 +371,8 @@ async def tair(dut):
     #await jtag_driver.write(0x03000004, 0x00000000)
     #await jtag_driver.write(0x03000008, 2)
 
-    setjtag = cocotb.start_soon(test_write_scratch_regs_via_jtag(dut, clk))
-    await setjtag
+    #setjtag = cocotb.start_soon(test_write_scratch_regs_via_jtag(dut, clk))
+    #await setjtag
 
     cocotb.start_soon(uart_monitor(dut, clk, clk_ns, baud_rate))
     blk = cocotb.start_soon(main_memory(dut, clk, start_address))
