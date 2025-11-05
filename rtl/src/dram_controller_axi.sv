@@ -5,9 +5,8 @@ import axi_pkg::*;
 
 module dram_controller_axi #(
     parameter int unsigned AXI_ID_WIDTH   = 4,
-    parameter int unsigned AXI_ADDR_WIDTH = 32,
-    parameter int unsigned AXI_DATA_WIDTH = 32,
-    parameter int unsigned WB_ADDR_WIDTH  = 32
+    parameter int unsigned AXI_ADDR_WIDTH = 64,
+    parameter int unsigned AXI_DATA_WIDTH = 64
 ) (
     input  logic clk_i,
     input  logic rst_ni,
@@ -117,7 +116,7 @@ module dram_controller_axi #(
     dram_controller_wb dram_iface_dut (
        .clk_i   (clk_i),
        .rst_i   (~rst_ni),
-       .wb_adr_i(wb_adr[WB_ADDR_WIDTH-1:0]),
+       .wb_adr_i(wb_adr),
        .wb_dat_i(wb_dat_w),
        .wb_we_i (wb_we),
        .wb_stb_i(wb_stb),

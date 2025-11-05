@@ -6,14 +6,14 @@ module dram_controller_wb (
    input wire clk_i,
    input wire rst_i,
 
-   input  wire [31:0] wb_adr_i,
-   input  wire [31:0] wb_dat_i,
+   input  wire [63:0] wb_adr_i,
+   input  wire [63:0] wb_dat_i,
    input  wire        wb_we_i ,
    input  wire        wb_stb_i,
-   input  wire [3:0]  wb_sel_i,
+   input  wire [7:0]  wb_sel_i,
    input  wire        wb_cyc_i,
    output        wb_ack_o,
-   output [31:0] wb_dat_o
+   output [63:0] wb_dat_o
 
    ,output ddr3_reset_n
    ,output ddr3_cke
@@ -42,16 +42,16 @@ module dram_controller_wb (
    input wire uart_dram_write_rst_i
 );
 
-    reg [31:0] wb_read_data_r;
-    reg [31:0] wb_read_data_next_r;
+    reg [63:0] wb_read_data_r;
+    reg [63:0] wb_read_data_next_r;
     assign wb_dat_o = wb_read_data_r;
 
     reg wb_ack_r;
     reg wb_ack_next_r;
     assign wb_ack_o = wb_ack_r;
 
-    reg [31:0] DRAM_ADDRESS;
-    reg [31:0] DRAM_ADDRESS_NEXT;
+    reg [63:0] DRAM_ADDRESS;
+    reg [63:0] DRAM_ADDRESS_NEXT;
     reg [31:0] DRAM_DATA_WRITE0;
     reg [31:0] DRAM_DATA_WRITE0_NEXT;
     reg [31:0] DRAM_DATA_WRITE1;
@@ -88,9 +88,9 @@ module dram_controller_wb (
 
     state_t state_r, state_next_r;
 
-    reg [31:0] wb_adr_r, wb_adr_next_r;
-    reg [31:0] wb_dat_r, wb_dat_next_r;
-    reg [3:0]  wb_sel_r, wb_sel_next_r;
+    reg [63:0] wb_adr_r, wb_adr_next_r;
+    reg [63:0] wb_dat_r, wb_dat_next_r;
+    reg [7:0]  wb_sel_r, wb_sel_next_r;
 
     reg [31:0] uart_adr_r, uart_adr_next_r;
     reg [31:0] uart_dat_r, uart_dat_next_r;
@@ -190,7 +190,7 @@ module dram_controller_wb (
                     state_next_r = UART_WRITE_RMW_START;
                 end else if (wb_cyc_i && wb_stb_i && !wb_ack_r) begin
                     wb_adr_next_r = wb_adr_i;
-                    DRAM_ADDRESS_NEXT = wb_adr_i & 32'hFFFFFFF0;
+                    DRAM_ADDRESS_NEXT = wb_adr_i & 64'hFFFFFFFFFFFFFFF0;
                     if (wb_we_i) begin
                         wb_dat_next_r = wb_dat_i;
                         wb_sel_next_r = wb_sel_i;
@@ -217,11 +217,9 @@ module dram_controller_wb (
 
             READ_WAIT_ACK: begin
                 if (ram_ack) begin
-                    case (wb_adr_r[3:2])
-                        2'b00: wb_read_data_next_r = ram_rd_data[31:0];
-                        2'b01: wb_read_data_next_r = ram_rd_data[63:32];
-                        2'b10: wb_read_data_next_r = ram_rd_data[95:64];
-                        2'b11: wb_read_data_next_r = ram_rd_data[127:96];
+                    case (wb_adr_r[3])
+                        1'b0: wb_read_data_next_r = ram_rd_data[63:0];
+                        1'b1: wb_read_data_next_r = ram_rd_data[127:64];
                     endcase
                     wb_ack_next_r = 1;
                     state_next_r = IDLE;
@@ -246,30 +244,26 @@ module dram_controller_wb (
                 if (ram_ack) begin
                     DRAM_RE_NEXT = 0;
                     modified_rmw_data = ram_rd_data;
-                    case (wb_adr_r[3:2])
-                        2'b00: begin
+                    case (wb_adr_r[3])
+                        1'b0: begin
                             if(wb_sel_r[0]) modified_rmw_data[7:0]   = wb_dat_r[7:0];
                             if(wb_sel_r[1]) modified_rmw_data[15:8]  = wb_dat_r[15:8];
                             if(wb_sel_r[2]) modified_rmw_data[23:16] = wb_dat_r[23:16];
                             if(wb_sel_r[3]) modified_rmw_data[31:24] = wb_dat_r[31:24];
+                            if(wb_sel_r[4]) modified_rmw_data[39:32] = wb_dat_r[39:32];
+                            if(wb_sel_r[5]) modified_rmw_data[47:40] = wb_dat_r[47:40];
+                            if(wb_sel_r[6]) modified_rmw_data[55:48] = wb_dat_r[55:48];
+                            if(wb_sel_r[7]) modified_rmw_data[63:56] = wb_dat_r[63:56];
                         end
-                        2'b01: begin
-                            if(wb_sel_r[0]) modified_rmw_data[39:32] = wb_dat_r[7:0];
-                            if(wb_sel_r[1]) modified_rmw_data[47:40] = wb_dat_r[15:8];
-                            if(wb_sel_r[2]) modified_rmw_data[55:48] = wb_dat_r[23:16];
-                            if(wb_sel_r[3]) modified_rmw_data[63:56] = wb_dat_r[31:24];
-                        end
-                        2'b10: begin
-                            if(wb_sel_r[0]) modified_rmw_data[71:64] = wb_dat_r[7:0];
-                            if(wb_sel_r[1]) modified_rmw_data[79:72] = wb_dat_r[15:8];
-                            if(wb_sel_r[2]) modified_rmw_data[87:80] = wb_dat_r[23:16];
-                            if(wb_sel_r[3]) modified_rmw_data[95:88] = wb_dat_r[31:24];
-                        end
-                        2'b11: begin
-                            if(wb_sel_r[0]) modified_rmw_data[103:96]  = wb_dat_r[7:0];
-                            if(wb_sel_r[1]) modified_rmw_data[111:104] = wb_dat_r[15:8];
-                            if(wb_sel_r[2]) modified_rmw_data[119:112] = wb_dat_r[23:16];
-                            if(wb_sel_r[3]) modified_rmw_data[127:120] = wb_dat_r[31:24];
+                        1'b1: begin
+                            if(wb_sel_r[0]) modified_rmw_data[71:64]   = wb_dat_r[7:0];
+                            if(wb_sel_r[1]) modified_rmw_data[79:72]   = wb_dat_r[15:8];
+                            if(wb_sel_r[2]) modified_rmw_data[87:80]   = wb_dat_r[23:16];
+                            if(wb_sel_r[3]) modified_rmw_data[95:88]   = wb_dat_r[31:24];
+                            if(wb_sel_r[4]) modified_rmw_data[103:96]  = wb_dat_r[39:32];
+                            if(wb_sel_r[5]) modified_rmw_data[111:104] = wb_dat_r[47:40];
+                            if(wb_sel_r[6]) modified_rmw_data[119:112] = wb_dat_r[55:48];
+                            if(wb_sel_r[7]) modified_rmw_data[127:120] = wb_dat_r[63:56];
                         end
                     endcase
                     DRAM_DATA_WRITE0_NEXT = modified_rmw_data[31:0];

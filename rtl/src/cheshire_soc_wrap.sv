@@ -279,8 +279,7 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
   dram_controller_axi #(
     .AXI_ID_WIDTH  ( WrapCfg.AxiMstIdWidth ),
     .AXI_ADDR_WIDTH( WrapCfg.AddrWidth ),
-    .AXI_DATA_WIDTH( WrapCfg.AxiDataWidth ),
-    .WB_ADDR_WIDTH ( 32 )
+    .AXI_DATA_WIDTH( WrapCfg.AxiDataWidth )
   ) dram_controller (
     .clk_i(clkwiz_o),
     .rst_ni(rst_n),
