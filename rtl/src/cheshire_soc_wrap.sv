@@ -286,7 +286,7 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
 
     .s_axi_awvalid(axi_llc_mst_req.aw_valid),
     .s_axi_awready(axi_llc_mst_rsp.aw_ready),
-    .s_axi_awaddr(axi_llc_mst_req.aw.addr[30:0]),
+    .s_axi_awaddr(axi_llc_mst_req.aw.addr),
     .s_axi_awid(axi_llc_mst_req.aw.id),
     .s_axi_awlen(axi_llc_mst_req.aw.len),
     .s_axi_awsize(axi_llc_mst_req.aw.size),
@@ -306,7 +306,7 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
 
     .s_axi_arvalid(axi_llc_mst_req.ar_valid),
     .s_axi_arready(axi_llc_mst_rsp.ar_ready),
-    .s_axi_araddr(axi_llc_mst_req.ar.addr[30:0]),
+    .s_axi_araddr(axi_llc_mst_req.ar.addr),
     .s_axi_arid(axi_llc_mst_req.ar.id),
     .s_axi_arlen(axi_llc_mst_req.ar.len),
     .s_axi_arsize(axi_llc_mst_req.ar.size),
