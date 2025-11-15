@@ -98,7 +98,7 @@ module dram_controller_wb (
     logic [127:0] modified_rmw_data;
  
     `ifdef ZC706
-    wire [31:0]  ram_addr = DRAM_ADDRESS;
+    wire [31:0]  ram_addr = DRAM_ADDRESS[31:0];
     wire         ram_wr = DRAM_WE;
     wire [127:0] ram_wr_data = {DRAM_DATA_WRITE3, DRAM_DATA_WRITE2, DRAM_DATA_WRITE1, DRAM_DATA_WRITE0};
     wire         ram_rd = DRAM_RE;
