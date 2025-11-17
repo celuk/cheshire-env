@@ -3745,6 +3745,19 @@ index 6f97ad5..e8be77f 100644
              1920: data_o = 32'h00000000 /* 0x1e00 */;
              1921: data_o = 32'h00000000 /* 0x1e04 */;
              1922: data_o = 32'h00000000 /* 0x1e08 */;
+diff --git a/hw/cheshire_pkg.sv b/hw/cheshire_pkg.sv
+index 0163af7..45d066d 100644
+--- a/hw/cheshire_pkg.sv
++++ b/hw/cheshire_pkg.sv
+@@ -543,7 +543,7 @@ package cheshire_pkg;
+       NrCachedRegionRules   : 3,   // CachedSPM, LLCOut, ExtCIE
+       CachedRegionAddrBase  : {AmSpm,   cfg.LlcOutRegionStart,  CieBase},
+       CachedRegionLength    : {SizeSpm, SizeLlcOut,             cfg.Cva6ExtCieLength},
+-      MaxOutstandingStores  : 7,
++      MaxOutstandingStores  : 0,
+       DebugEn               : 1,
+       NonIdemPotenceEn      : 0,
+       AxiBurstWriteEn       : 0
 diff --git a/hw/cheshire_soc.sv b/hw/cheshire_soc.sv
 index b3b6254..92cdcef 100644
 --- a/hw/cheshire_soc.sv
