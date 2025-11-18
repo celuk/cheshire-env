@@ -125,8 +125,7 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
   assign rtc = 1'b0;
   `endif
 
-  import tb_cheshire_pkg::*;
-  localparam cheshire_cfg_t WrapCfg = TbCheshireConfigs[SelectedCfg];
+  localparam cheshire_cfg_t WrapCfg = DefaultCfg;
   `CHESHIRE_TYPEDEF_ALL(, WrapCfg)
 
   axi_llc_req_t axi_llc_mst_req;
