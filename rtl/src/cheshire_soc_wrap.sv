@@ -9,7 +9,7 @@
 module cheshire_soc_wrap import cheshire_pkg::*; #(
   parameter int unsigned SelectedCfg = 32'd0,
   parameter bit          UseDramSys  = 1'b0,
-  parameter time          ClkPeriodRtc      = 30518ns,
+  parameter time          ClkPeriodRtc      = 30518000ns,
   parameter int unsigned  RstCycles         = 5
 )
 (

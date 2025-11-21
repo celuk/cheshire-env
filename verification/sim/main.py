@@ -654,6 +654,7 @@ def run_test(simulator: str, test_file: Path, top_module: str, waves: bool, cfil
 
     verilog_sources = (
         list(verilog_files)
+        + list(["../../rtl/header.vh"])
         + list(["../../rtl/src/cheshire_soc_wrap.sv"])
         + list(["../../rtl/src/ddr3_controller.sv"])
         + list(["../../rtl/src/ddr3_core.sv"])
