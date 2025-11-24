@@ -6,7 +6,7 @@ pkgs.stdenv.mkDerivation {
     owner = "riscv";
     repo = "riscv-gnu-toolchain";
     rev = "13385f4f06d67efe7c204955658cbec166757dce";
-    sha256 = "sha256-QTjDc7uqnJP3bUo1h2s++yQGKiuAJVY1j+6BVMWb9gU=";
+    sha256 = "sha256-9aHe+2e6W/44Uu4SO2iHbhKRfQ/E7v87gstCN+Iv/yw=";
     fetchSubmodules = true;
   };
 
@@ -15,12 +15,18 @@ pkgs.stdenv.mkDerivation {
     "--with-abi=lp64d"
   ];
 
-  installPhase = ":"; # 'make' installs on its own
+  preConfigure = ''
+    for dir in binutils gcc gdb newlib dejagnu glibc musl qemu spike pkc; do
+      if [ -d "$dir" ]; then
+        mkdir -p "$dir/.git"
+      fi
+    done
+  '';
+
+  installPhase = ":"; 
   hardeningDisable = [ "all" ];
   enableParallelBuilding = true;
 
-  # Stripping/fixups break the resulting libgcc.a archives, somehow.
-  # Maybe something in stdenv that does this...
   dontStrip = true;
   dontFixup = true;
 
@@ -31,6 +37,9 @@ pkgs.stdenv.mkDerivation {
     bison
     flex
     gperf
+    git
+    util-linux
+    perl
   ];
   buildInputs = with pkgs; [
     libmpc
@@ -39,4 +48,3 @@ pkgs.stdenv.mkDerivation {
     expat
   ];
 }
-
