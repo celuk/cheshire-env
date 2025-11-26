@@ -118,6 +118,7 @@
             pkgs.dtc
             pkgs.gnumake
             pkgs.cmake
+            pkgs.unzip
             pkgs.cargo
             pkgs.rustc
             bender
