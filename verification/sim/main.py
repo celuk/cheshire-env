@@ -5,8 +5,8 @@ from pathlib import Path
 
 from cocotb.runner import get_runner
 
-#VIVADO_PATH = "/tools/Xilinx/Vivado/2022.2"
-VIVADO_PATH = "/home/kasirga/work/xilinx/tools/Xilinx/Vivado/2022.2"
+VIVADO_PATH = "/tools/Xilinx/Vivado/2022.2"
+#VIVADO_PATH = "/home/kasirga/work/xilinx/tools/Xilinx/Vivado/2022.2"
 
 ROOT="../../cheshire"
 
