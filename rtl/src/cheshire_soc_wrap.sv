@@ -276,7 +276,7 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
   `endif
 
   dram_controller_axi #(
-    .AXI_ID_WIDTH  ( $bits(axi_llc_mst_req.ar.id) ), // 6
+    .AXI_ID_WIDTH  ( $bits(axi_llc_id_t) ), // 6
     .AXI_ADDR_WIDTH( WrapCfg.AddrWidth ),
     .AXI_DATA_WIDTH( WrapCfg.AxiDataWidth )
   ) dram_controller (
