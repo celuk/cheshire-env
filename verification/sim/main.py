@@ -661,7 +661,7 @@ def run_test(simulator: str, test_file: Path, top_module: str, waves: bool, cfil
             verilog_files.extend(expanded)
         else:
             print(f"Warning: No files found for pattern {f}")
-            verilog_files.append(f)
+            #verilog_files.append(f)
 
     verilog_sources = (
         verilog_files
@@ -703,7 +703,7 @@ def run_test(simulator: str, test_file: Path, top_module: str, waves: bool, cfil
             expanded_inc_dirs.extend(expanded)
         else:
             print(f"Warning: No directories found for pattern {d}")
-            expanded_inc_dirs.append(d)
+            #expanded_inc_dirs.append(d)
 
     include_dirs.extend(expanded_inc_dirs)
 
