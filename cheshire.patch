@@ -3781,7 +3781,7 @@ index 0163af7..140acca 100644
      Clic              : 0,
      IrqRouter         : 0,
 diff --git a/hw/cheshire_soc.sv b/hw/cheshire_soc.sv
-index b3b6254..92cdcef 100644
+index b3b6254..1b72a1d 100644
 --- a/hw/cheshire_soc.sv
 +++ b/hw/cheshire_soc.sv
 @@ -209,6 +209,8 @@ module cheshire_soc import cheshire_pkg::*; #(
@@ -3838,6 +3838,15 @@ index b3b6254..92cdcef 100644
  
    logic [cf_math_pkg::idx_width(RegOut.num_out)-1:0] reg_select;
  
+@@ -1198,7 +1224,7 @@ module cheshire_soc import cheshire_pkg::*; #(
+   if (Cfg.Uart) begin : gen_uart
+ 
+     reg_uart_wrap #(
+-      .AddrWidth  ( Cfg.AddrWidth ),
++      .AddrWidth  ( 32 ),
+       .reg_req_t  ( reg_req_t ),
+       .reg_rsp_t  ( reg_rsp_t )
+     ) i_uart (
 diff --git a/sw/sw.mk b/sw/sw.mk
 index baa9ee4..a21618c 100644
 --- a/sw/sw.mk
