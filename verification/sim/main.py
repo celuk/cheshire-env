@@ -441,8 +441,8 @@ FILE_LIST = [
     f"{ROOT}/.bender/git/checkouts/clint-*/src/clint.sv",
     f"{ROOT}/.bender/git/checkouts/clint-*/test/clint_tb.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/include/config_pkg.sv",
-#    f"{ROOT}/.bender/git/checkouts/cva6-*/core/include/cv64a6_imafdcsclic_sv39_config_pkg.sv",
-    f"{ROOT}/.bender/git/checkouts/cva6-*/core/include/cv64a6_flamingo_config_pkg.sv",
+    f"{ROOT}/.bender/git/checkouts/cva6-*/core/include/cv64a6_imafdcsclic_sv39_config_pkg.sv",
+#    f"{ROOT}/.bender/git/checkouts/cva6-*/core/include/cv64a6_flamingo_config_pkg.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/include/riscv_pkg.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/include/ariane_pkg.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/include/build_config_pkg.sv",
@@ -528,6 +528,7 @@ FILE_LIST = [
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/std_nbdcache.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/cva6_icache_axi_wrapper.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/std_cache_subsystem.sv",
+    f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/target/generic/hpdcache_params_pkg.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_pkg.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_mem_resp_demux.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_mem_to_axi_read.sv",
@@ -548,6 +549,8 @@ FILE_LIST = [
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_sram.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_sram_wbyteenable.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_sram_wmask.sv",
+    f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/common/macros/behav/hpdcache_sram_1rw.sv",
+    f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/common/macros/behav/hpdcache_sram_wmask_1rw.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_regbank_wbyteenable_1rw.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_regbank_wmask_1rw.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_data_downsize.sv",
@@ -566,6 +569,7 @@ FILE_LIST = [
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_memctrl.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_miss_handler.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_mshr.sv",
+    f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_mshr_to_cache_set.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_rtab.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_uncached.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_victim_plru.sv",
@@ -573,6 +577,9 @@ FILE_LIST = [
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_victim_sel.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_wbuf.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_flush.sv",
+    f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_memarray.sv",
+    f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_wbuf_wrapper.sv",
+    f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/hpdcache/rtl/src/hpdcache_plru.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/cva6_hpdcache_if_adapter.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/cva6_hpdcache_subsystem_axi_arbiter.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/cva6_hpdcache_subsystem.sv",
@@ -776,6 +783,7 @@ def run_test(simulator: str, test_file: Path, top_module: str, waves: bool, cfil
         + list(["../../rtl/src/ddr3_core.sv"])
         + list(["../../rtl/src/ddr3_dfi_phy.sv"])
         + list(["../../rtl/src/ddr3_dfi_seq.sv"])
+        + list(["../../rtl/src/dram_wrapper.sv"])
         + list(["../../rtl/src/dram_controller_axi.sv"])
         + list(["../../rtl/src/dram_controller_wb.sv"])
         + list(["../../rtl/sim/ddr3.v"])

@@ -179,6 +179,8 @@ module dram_controller_wb (
         DRAM_WE_NEXT = DRAM_WE;
         DRAM_WDG_NEXT = DRAM_WDG;
 
+        modified_rmw_data = 128'h0;
+
         case (state_r)
             IDLE: begin
                 DRAM_RE_NEXT = 0;
