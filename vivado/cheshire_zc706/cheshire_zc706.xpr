@@ -6,7 +6,7 @@
 <Project Version="7" Minor="61" Path="/home/shc/projects/cheshire-env/vivado/cheshire_zc706/cheshire_zc706.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="2afa855193f44c4ab5aabda8959cef50"/>
+    <Option Name="Id" Val="71cb76c9f06040cfa4530aa14d761b93"/>
     <Option Name="Part" Val="xc7z045ffg900-2"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>
@@ -43,6 +43,7 @@
     <Option Name="SimulatorGccVersionRiviera" Val="9.3.0"/>
     <Option Name="SimulatorGccVersionActiveHdl" Val="9.3.0"/>
     <Option Name="BoardPart" Val="xilinx.com:zc706:part0:1.4"/>
+    <Option Name="BoardPartRepoPaths" Val="$PPRDIR/../../../../Downloads/vivado-boards/new/board_files/nexys-a7-100t"/>
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
@@ -1489,6 +1490,76 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/include/cva6_hpdcache_default_config_pkg.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/target/cva6/cva6_hpdcache_params_pkg.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/target/cva6/cva6_op_hpdcache_params_pkg.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/target/generic/hpdcache_params_pkg.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_pkg.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/target/cva6/cva6_hpdcache_if_adapter.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hwpf_stride/hwpf_stride_pkg.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/include/hpdcache_typedef.svh">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+          <Attr Name="IsVisible" Val="1"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/target/cva6/cva6_hpdcache_subsystem.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/target/cva6/cva6_hpdcache_subsystem_axi_arbiter.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/cva6_icache.sv">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -1868,6 +1939,293 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/fpnew-bf53e0cd80712e4f/src/common_cells/src/gray_to_binary.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_amo.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_cmo.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_core_arbiter.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_ctrl.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_ctrl_pe.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_data_downsize.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_data_upsize.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_demux.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_fifo_reg.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_fxarb.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_mem_req_read_arbiter.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_mem_req_write_arbiter.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_mem_resp_demux.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_mem_to_axi_read.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_mem_to_axi_write.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_memarray.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_memctrl.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_miss_handler.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_mshr.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_mshr_to_cache_set.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_mux.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_plru.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_prio_1hot_encoder.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_regbank_wbyteenable_1rw.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_regbank_wmask_1rw.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_rrarb.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_rtab.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_sram.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/macros/behav/hpdcache_sram_1rw.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_sram_wbyteenable.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/macros/behav/hpdcache_sram_wbyteenable_1rw.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_sram_wmask.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/macros/behav/hpdcache_sram_wmask_1rw.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_sync_buffer.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_uncached.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_wbuf.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hpdcache_wbuf_wrapper.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hwpf_stride/hwpf_stride.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hwpf_stride/hwpf_stride_arb.sv">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hwpf_stride/hwpf_stride_wrapper.sv">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -3003,54 +3361,6 @@
       </File>
       <File Path="$PPRDIR/../../rtl/src/cheshire_soc_wrap.sv">
         <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/include/wt_cache_pkg.sv">
-        <FileInfo SFType="VHeader">
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-          <Attr Name="IsVisible" Val="1"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hwpf_stride/hwpf_stride_pkg.sv">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/include/hpdcache_typedef.svh">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-          <Attr Name="IsVisible" Val="1"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hwpf_stride/hwpf_stride.sv">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hwpf_stride/hwpf_stride_arb.sv">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/hwpf_stride/hwpf_stride_wrapper.sv">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -5608,6 +5918,14 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/target/cva6/cva6_hpdcache_cmo_if_adapter.sv">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/env/corev-dv/cva6_signature_pkg.sv">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -6137,6 +6455,38 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/fpnew-bf53e0cd80712e4f/src/common_cells/test/graycode_tb.sv">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/common/hpdcache_fifo_reg_initialized.sv">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_l15_req_arbiter.sv">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_l15_resp_demux.sv">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_to_l15.sv">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -8369,11 +8719,11 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_agents/uvma_axi/src/seq/uvma_axi_aw_item.sv">
-        <FileInfo SFType="VHeader">
+        <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
-          <Attr Name="IsVisible" Val="1"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_agents/uvma_axi/src/comps/uvma_axi_aw_agent/uvma_axi_aw_drv.sv">
@@ -8385,11 +8735,11 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_agents/uvma_axi/src/seq/uvma_axi_base_seq_item.sv">
-        <FileInfo SFType="VHeader">
+        <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
-          <Attr Name="IsVisible" Val="1"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_agents/uvma_axi/src/comps/uvma_axi_aw_agent/uvma_axi_aw_mon.sv">
@@ -8449,11 +8799,11 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_agents/uvma_axi/src/seq/uvma_axi_b_item.sv">
-        <FileInfo SFType="VHeader">
+        <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
-          <Attr Name="IsVisible" Val="1"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_agents/uvma_axi/src/comps/uvma_axi_b_agent/uvma_axi_b_drv.sv">
@@ -8489,11 +8839,11 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_agents/uvma_axi/src/seq/uvma_axi_ar_item.sv">
-        <FileInfo SFType="VHeader">
+        <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
-          <Attr Name="IsVisible" Val="1"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_agents/uvma_axi/src/comps/uvma_axi_ar_agent/uvma_axi_ar_drv.sv">
@@ -8713,19 +9063,19 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_agents/uvma_axi/src/seq/uvma_axi_seq_lib.sv">
-        <FileInfo SFType="VHeader">
+        <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
-          <Attr Name="IsVisible" Val="1"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_agents/uvma_axi/src/seq/uvma_axi_r_item.sv">
-        <FileInfo SFType="VHeader">
+        <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
-          <Attr Name="IsVisible" Val="1"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_agents/uvma_axi/src/seq/uvma_axi_ar_seq.sv">
@@ -8737,11 +9087,11 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_agents/uvma_axi/src/seq/uvma_axi_w_item.sv">
-        <FileInfo SFType="VHeader">
+        <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
-          <Attr Name="IsVisible" Val="1"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_agents/uvma_axi/src/uvma_axi_w_assert.sv">
@@ -16812,6 +17162,14 @@
           <Attr Name="IsVisible" Val="1"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/cva6_hpdcache_subsystem_axi_arbiter.sv">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/vendor/riscv/riscv-isa-sim/riscv/insns/andn.h">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -16954,6 +17312,14 @@
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
           <Attr Name="IsVisible" Val="1"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/cva6_hpdcache_subsystem.sv">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/vendor/riscv/riscv-isa-sim/riscv/insns/vnclipu_wv.h">
@@ -19154,6 +19520,14 @@
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
           <Attr Name="IsVisible" Val="1"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/cache_subsystem/cva6_hpdcache_if_adapter.sv">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/vendor/riscv/riscv-isa-sim/riscv/insns/vmsbc_vx.h">
@@ -26116,6 +26490,14 @@
           <Attr Name="IsVisible" Val="1"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/core/include/wt_cache_pkg.sv">
+        <FileInfo SFType="VHeader">
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+          <Attr Name="IsVisible" Val="1"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/verif/core-v-verif/lib/uvm_libs/uvml_mem/uvml_mem_constants.sv">
         <FileInfo SFType="VHeader">
           <Attr Name="AutoDisabled" Val="1"/>
@@ -27531,6 +27913,9 @@
         <Option Name="VerilogDir" Val="$PPRDIR/../../rtl/src"/>
         <Option Name="VerilogDir" Val="$PPRDIR/../../rtl"/>
         <Option Name="dataflowViewerSettings" Val="min_width=16"/>
+        <Define Name="TARGET_CVA6"/>
+        <Define Name="TARGET_RTL"/>
+        <Define Name="TARGET_CV64A6_IMAFDCSCLIC_SV39"/>
       </Config>
     </FileSet>
     <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
@@ -27546,7 +27931,6 @@
       </Config>
     </FileSet>
     <FileSet Name="sim_1" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_1" RelGenDir="$PGENDIR/sim_1">
-      <Filter Type="Srcs"/>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
         <Option Name="TopModule" Val="cva6_csr_reg_block"/>
@@ -27606,7 +27990,9 @@
   <Runs Version="1" Minor="19">
     <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7z045ffg900-2" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="true" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -27616,7 +28002,9 @@
     </Run>
     <Run Id="clk_wiz_0_synth_1" Type="Ft3:Synth" SrcSet="clk_wiz_0" Part="xc7z045ffg900-2" ConstrsSet="clk_wiz_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/clk_wiz_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/clk_wiz_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/clk_wiz_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -27626,7 +28014,9 @@
     </Run>
     <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7z045ffg900-2" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" SynthRun="synth_1" IncludeInArchive="true" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/impl_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -27643,7 +28033,9 @@
     </Run>
     <Run Id="clk_wiz_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z045ffg900-2" ConstrsSet="clk_wiz_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="clk_wiz_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/clk_wiz_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/clk_wiz_0_impl_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>

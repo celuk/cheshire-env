@@ -899,8 +899,8 @@ def run_test(simulator: str, test_file: Path, top_module: str, waves: bool, cfil
                              "+define+TARGET_SIMULATION",
                              "+define+TARGET_TEST",
                              "+define+TARGET_VCS",
-                             "+define+TARGET_CV64A6_FLAMINGO",
-                             #"+define+TARGET_CV64A6_IMAFDCSCLIC_SV39",
+                             #"+define+TARGET_CV64A6_FLAMINGO",
+                             "+define+TARGET_CV64A6_IMAFDCSCLIC_SV39",
         ] #'+incdir+"../../../vivado/cva_soc_zc706/cva_soc_zc706.gen/sources_1/ip/clk_wiz_0"']
         if DRAM_SIM: #if "dram" in cfile:
             runner_build_args.extend(["-f", f"{VIVADO_PATH}/data/secureip/secureip_cell.list.f"])
