@@ -70,14 +70,14 @@ module dram_wrapper #(
   } dram_cfg_t;
 
   localparam dram_cfg_t cfg = '{
-    EnCdc         : 1,    // 200 MHz AXI (cf. CCdcLogDepth)
+    EnCdc         : 0,    // 200 MHz AXI (cf. CCdcLogDepth)
     CdcLogDepth   : 5,
     IdWidth       : 4,    // Fixed
     AddrWidth     : 30,
     DataWidth     : 64,
     StrobeWidth   : 8,
-    MaxUniqIds    : 8,    // TODO: suboptimal, but limited by CVA6/LLC
-    MaxTxns       : 24    // TODO: suboptimal, but limited by CVA6/LLC
+    MaxUniqIds    : 4,    // TODO: suboptimal, but limited by CVA6/LLC
+    MaxTxns       : 1    // TODO: suboptimal, but limited by CVA6/LLC
   };
 
   localparam SocDataWidth = $bits(soc_req_i.w.data);
