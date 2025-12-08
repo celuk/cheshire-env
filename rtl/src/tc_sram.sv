@@ -34,6 +34,37 @@ module tc_sram #(
   // pipeline registers for read data
   data_t rdata_q [NumPorts-1:0][Latency-1:0];
 
+  always_ff @(posedge clk_i) begin
+    for (int i = 0; i < NumPorts; i++) begin
+      if (req_i[i]) begin
+        if (we_i[i]) begin
+            /*
+            // byte-write
+            for (int b = 0; b < BeWidth; b++) begin
+              if (be_i[i][b]) begin
+                //sram[addr_i[i]][b*ByteWidth +: ByteWidth] <= wdata_i[i][b*ByteWidth +: ByteWidth];
+                sram[addr_i[i]][ (b+1)*ByteWidth-1 -: ByteWidth ] <= wdata_i[i][ (b+1)*ByteWidth-1 -: ByteWidth ];
+              end
+            end
+            */
+            for (int b = 0; b < BeWidth-1; b++) begin
+              if (be_i[i][b]) begin
+                // every “middle” group is a fixed ByteWidth
+                sram[addr_i[i]][ (b+1)*ByteWidth-1  -: ByteWidth ]
+                  <= wdata_i[i][ (b+1)*ByteWidth-1  -: ByteWidth ];
+              end
+            end
+
+            // handle the **last** byte-group with its constant LastWidth
+            if (be_i[i][BeWidth-1]) begin
+              sram[addr_i[i]][ (BeWidth-1)*ByteWidth +: (DataWidth - (BeWidth-1)*ByteWidth) ]
+                <= wdata_i[i][ (BeWidth-1)*ByteWidth +: (DataWidth - (BeWidth-1)*ByteWidth) ];
+            end
+        end
+      end
+    end
+  end
+
   // Write and read logic
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
@@ -55,32 +86,7 @@ module tc_sram #(
         end
         // latch read address or write data
         if (req_i[i]) begin
-          if (we_i[i]) begin
-            /*
-            // byte-write
-            for (int b = 0; b < BeWidth; b++) begin
-              if (be_i[i][b]) begin
-                //sram[addr_i[i]][b*ByteWidth +: ByteWidth] <= wdata_i[i][b*ByteWidth +: ByteWidth];
-                sram[addr_i[i]][ (b+1)*ByteWidth-1 -: ByteWidth ] <= wdata_i[i][ (b+1)*ByteWidth-1 -: ByteWidth ];
-              end
-            end
-            */
-            for (int b = 0; b < BeWidth-1; b++) begin
-              if (req_i[i] && we_i[i] && be_i[i][b]) begin
-                // every “middle” group is a fixed ByteWidth
-                sram[addr_i[i]][ (b+1)*ByteWidth-1  -: ByteWidth ]
-                  <= wdata_i[i][ (b+1)*ByteWidth-1  -: ByteWidth ];
-              end
-            end
-
-            // handle the **last** byte-group with its constant LastWidth
-            if (req_i[i] && we_i[i] && be_i[i][BeWidth-1]) begin
-              sram[addr_i[i]][ (BeWidth-1)*ByteWidth +: (DataWidth - (BeWidth-1)*ByteWidth) ]
-                <= wdata_i[i][ (BeWidth-1)*ByteWidth +: (DataWidth - (BeWidth-1)*ByteWidth) ];
-            end
-            
-
-          end else begin
+          if (!we_i[i]) begin
             r_addr_q[i] <= addr_i[i];
           end
         end
