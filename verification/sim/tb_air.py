@@ -316,7 +316,7 @@ async def main_memory(dut, clk, start_address):
 
 @cocotb.test()
 async def tair(dut):
-    dut.boot_mode_i.value = BOOTMODE
+    #dut.boot_mode_i.value = BOOTMODE
 
     #bus = JTAGBus(
     #    entity=dut,

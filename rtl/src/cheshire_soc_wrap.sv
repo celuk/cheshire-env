@@ -20,29 +20,11 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
   input wire clk_i,
   `endif
   input  logic rst_ni,
-  input  logic [1:0] boot_mode_i,
 
-  // JTAG
-  input  logic jtag_tck,
-  input  logic jtag_trst_n,
-  input  logic jtag_tms,
-  input  logic jtag_tdi,
-  output logic jtag_tdo,
-  // UART
-  output logic uart_tx,
-  input  logic uart_rx,
-  // I2C
-  inout  logic i2c_sda,
-  inout  logic i2c_scl,
-  // SPI Host
-  inout  logic                  spih_sck,
-  inout  logic [SpihNumCs-1:0]  spih_csb,
-  inout  logic [3:0]            spih_sd,
-  // Serial Link
-  input  logic [SlinkNumChan-1:0]                    slink_rcv_clk_i,
-  output logic [SlinkNumChan-1:0]                    slink_rcv_clk_o,
-  input  logic [SlinkNumChan-1:0][SlinkNumLanes-1:0]  slink_i,
-  output logic [SlinkNumChan-1:0][SlinkNumLanes-1:0]  slink_o
+  input  wire program_rx_i,
+  output wire prog_mode_led_o,
+   
+  output wire uart_tx_o
 
 `ifndef DRAM_SIM
   // DDR3 Interface
@@ -62,12 +44,36 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
   inout  logic [1:0] ddr3_dqs_n,
   inout  logic [15:0] ddr3_dq
 `endif
-
-  ,input wire uart_dram_write_we_i,
-  input wire [31:0] uart_dram_write_addr_i,
-  input wire [31:0] uart_dram_write_data_i,
-  input wire uart_dram_write_rst_i
 );
+
+  logic [1:0] boot_mode_i = 2'b00;
+  assign prog_mode_led_o = 0;
+  // UART
+  assign uart_tx_o = uart_tx;
+  logic uart_rx = program_rx_i;
+  // JTAG
+  logic jtag_tck;
+  logic jtag_trst_n;
+  logic jtag_tms;
+  logic jtag_tdi;
+  logic jtag_tdo;
+  // I2C
+  logic i2c_sda;
+  logic i2c_scl;
+  // SPI Host
+  logic                  spih_sck;
+  logic [SpihNumCs-1:0]  spih_csb;
+  logic [3:0]            spih_sd;
+  // Serial Link
+  logic [SlinkNumChan-1:0]                    slink_rcv_clk_i;
+  logic [SlinkNumChan-1:0]                    slink_rcv_clk_o;
+  logic [SlinkNumChan-1:0][SlinkNumLanes-1:0]  slink_i;
+  logic [SlinkNumChan-1:0][SlinkNumLanes-1:0]  slink_o;
+
+  wire uart_dram_write_we_i;
+  wire [31:0] uart_dram_write_addr_i;
+  wire [31:0] uart_dram_write_data_i;
+  wire uart_dram_write_rst_i;
 
   `ifdef BASYS3
      wire clkwiz_o;
@@ -122,7 +128,35 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
     .rst_no ( )
   );
   `else
-  assign rtc = 1'b0;
+  //assign rtc = 1'b0;
+  /////////////////////////
+  // "RTC" Clock Divider //
+  /////////////////////////
+  logic rtc_clk_d, rtc_clk_q;
+  logic [15:0] counter_d, counter_q;
+
+  assign rtc = rtc_clk_q;
+
+  // Divide soc_clk (50 MHz) by 50 => 1 MHz RTC Clock
+  always_comb begin
+    counter_d = counter_q + 1;
+    rtc_clk_d = rtc_clk_q;
+
+    if(counter_q == 24) begin
+      counter_d = '0;
+      rtc_clk_d = ~rtc_clk_q;
+    end
+  end
+
+  always_ff @(posedge clkwiz_o, negedge rst_n) begin
+    if(~rst_n) begin
+      counter_q <= '0;
+      rtc_clk_q <= 0;
+    end else begin
+      counter_q <= counter_d;
+      rtc_clk_q <= rtc_clk_d;
+    end
+  end
   `endif
 
   localparam cheshire_cfg_t WrapCfg = DefaultCfg;
