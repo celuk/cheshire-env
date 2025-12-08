@@ -1,13 +1,14 @@
 diff --git a/.gitignore b/.gitignore
-index 4c8e9b8..ae10afb 100644
+index 4c8e9b8..b6b7ecb 100644
 --- a/.gitignore
 +++ b/.gitignore
-@@ -53,3 +53,5 @@ target/xilinx/build
+@@ -53,3 +53,6 @@ target/xilinx/build
  target/xilinx/out
  target/xilinx/scripts/add_sources.*
  vivado*
 +
 +*mem_init.txt
++*.hex
 diff --git a/hw/bootrom/cheshire_bootrom.c b/hw/bootrom/cheshire_bootrom.c
 index 43bae50..7731ec7 100644
 --- a/hw/bootrom/cheshire_bootrom.c

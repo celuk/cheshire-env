@@ -6,12 +6,7 @@
 
 //`default_nettype none
 
-module cheshire_soc_wrap import cheshire_pkg::*; #(
-  parameter int unsigned SelectedCfg = 32'd0,
-  parameter bit          UseDramSys  = 1'b0,
-  //parameter time          ClkPeriodRtc      = 30518000ns,
-  parameter int unsigned  RstCycles         = 5
-)
+module cheshire_soc_wrap import cheshire_pkg::*;
 (
   `ifdef ZC706
   input  wire clk_p,
@@ -47,7 +42,7 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
 );
 
   logic [1:0] boot_mode_i = 2'b00;
-  assign prog_mode_led_o = 0;
+  logic test_mode = 0;
   // UART
   assign uart_tx_o = uart_tx;
   logic uart_rx = program_rx_i;
@@ -70,10 +65,12 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
   logic [SlinkNumChan-1:0][SlinkNumLanes-1:0]  slink_i;
   logic [SlinkNumChan-1:0][SlinkNumLanes-1:0]  slink_o;
 
-  wire uart_dram_write_we_i;
-  wire [31:0] uart_dram_write_addr_i;
-  wire [31:0] uart_dram_write_data_i;
-  wire uart_dram_write_rst_i;
+  logic system_reset_o;
+  logic uart_dram_write_we;
+  logic [31:0] uart_dram_write_addr;
+  logic [31:0] uart_dram_write_data;
+  logic uart_dram_write_rst;
+  logic uart_dram_mode;
 
   `ifdef BASYS3
      wire clkwiz_o;
@@ -84,7 +81,7 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
         .reset(~rst_ni),
         .locked(clkwiz_locked)
      );
-     wire rst_n = rst_ni & clkwiz_locked;
+     wire rst_n = rst_ni & system_reset_o & clkwiz_locked;
   `elsif ZC706
      wire pll_locked;
      wire clk100;
@@ -110,19 +107,32 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
      );
 
      wire clkwiz_o = clk_i;
-     wire rst_n = rst_ni & pll_locked; // & !uart_dram_mode
+     wire rst_n = rst_ni & system_reset_o & !uart_dram_mode & pll_locked; // & !uart_dram_mode
   `else
      wire clkwiz_o = clk_i;
-     wire rst_n = rst_ni;
+     wire rst_n = rst_ni & system_reset_o;
   `endif
 
-  logic test_mode = 0;
+  uart_programmer up_dram (
+     .clk_i(clkwiz_o),
+     .rst_ni(rst_ni `ifdef BASYS3 & clkwiz_locked `endif) // pll_locked
+     
+     ,.program_rx_i(program_rx_i)
+     ,.system_reset_o(system_reset_o)
+     ,.prog_mode_led_o(prog_mode_led_o)
+
+     ,.dram_write_we_o(uart_dram_write_we)
+     ,.dram_write_addr_o(uart_dram_write_addr)
+     ,.dram_write_data_o(uart_dram_write_data)
+     ,.dram_write_rst_o(uart_dram_write_rst)
+     ,.dram_mode_o(uart_dram_mode)
+  );
   
   logic rtc;
   `ifdef SIM
   clk_rst_gen #(
     .ClkPeriod    ( 30518000ns ),
-    .RstClkCycles ( RstCycles )
+    .RstClkCycles ( 5 )
   ) i_clk_rst_rtc (
     .clk_o  ( rtc ),
     .rst_no ( )
@@ -326,10 +336,10 @@ module cheshire_soc_wrap import cheshire_pkg::*; #(
     .clk_ref      ( clk_ref ),
     .clk_ddr_dqs  ( clk_ddr_dqs ),
 
-    .uart_dram_write_we_i   ( uart_dram_write_we_i ),
-    .uart_dram_write_addr_i ( uart_dram_write_addr_i ),
-    .uart_dram_write_data_i ( uart_dram_write_data_i ),
-    .uart_dram_write_rst_i  ( uart_dram_write_rst_i ),
+    .uart_dram_write_we_i   ( uart_dram_write_we ),
+    .uart_dram_write_addr_i ( uart_dram_write_addr ),
+    .uart_dram_write_data_i ( uart_dram_write_data ),
+    .uart_dram_write_rst_i  ( 0 ),
 
     // PHY interfaces
     .ddr3_ck_p    ( ddr3_ck_p ),

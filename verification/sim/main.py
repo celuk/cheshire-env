@@ -515,7 +515,8 @@ FILE_LIST = [
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/wt_dcache_ctrl.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/wt_dcache_mem.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/wt_dcache_missunit.sv",
-    f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/wt_dcache_wbuffer.sv",
+    "../../rtl/src/wt_dcache_wbuffer.sv",
+#    f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/wt_dcache_wbuffer.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/wt_dcache.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/cva6_icache.sv",
     f"{ROOT}/.bender/git/checkouts/cva6-*/core/cache_subsystem/wt_cache_subsystem.sv",
@@ -789,7 +790,7 @@ def run_test(simulator: str, test_file: Path, top_module: str, waves: bool, cfil
         + list(["../../rtl/src/dram_controller_axi.sv"])
         + list(["../../rtl/src/dram_controller_wb.sv"])
         + list(["../../rtl/sim/ddr3.v"])
-        + list(["../../rtl/vivado_ip/clk_wiz_0_sim_netlist.v"])
+        + list(["../../vivado/cheshire_zc706/cheshire_zc706.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_sim_netlist.v"])
         + list([f"{VIVADO_PATH}/data/verilog/src/glbl.v"])
         + list([f"{VIVADO_PATH}/data/verilog/src/unisims/OBUFDS.v"])
         + list([f"{VIVADO_PATH}/data/verilog/src/unisims/IOBUFDS.v"])
