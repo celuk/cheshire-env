@@ -3747,7 +3747,7 @@ index 6f97ad5..b956b1b 100644
              1921: data_o = 32'h00000000 /* 0x1e04 */;
              1922: data_o = 32'h00000000 /* 0x1e08 */;
 diff --git a/hw/cheshire_pkg.sv b/hw/cheshire_pkg.sv
-index 0163af7..140acca 100644
+index 0163af7..8d7481f 100644
 --- a/hw/cheshire_pkg.sv
 +++ b/hw/cheshire_pkg.sv
 @@ -543,7 +543,7 @@ package cheshire_pkg;
@@ -3768,6 +3768,15 @@ index 0163af7..140acca 100644
      AxiDataWidth      : 64,
      AxiUserWidth      : 2,  // AMO(2)
      AxiMstIdWidth     : 2,
+@@ -597,7 +597,7 @@ package cheshire_pkg;
+     RegAmoPostCut     : 1,
+     RegAdaptMemCut    : 1,
+     // RTC
+-    RtcFreq           : 32768,
++    RtcFreq           : 1000000, // 1 MHz
+     // Features
+     Bootrom           : 1,
+     Uart              : 1,
 @@ -605,9 +605,9 @@ package cheshire_pkg;
      SpiHost           : 1,
      Gpio              : 1,

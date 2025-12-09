@@ -789,6 +789,8 @@ def run_test(simulator: str, test_file: Path, top_module: str, waves: bool, cfil
         + list(["../../rtl/src/dram_wrapper.sv"])
         + list(["../../rtl/src/dram_controller_axi.sv"])
         + list(["../../rtl/src/dram_controller_wb.sv"])
+        + list(["../../rtl/src/uart_programmer.sv"])
+        + list(["../../rtl/src/simpleuart.sv"])
         + list(["../../rtl/sim/ddr3.v"])
         + list(["../../vivado/cheshire_zc706/cheshire_zc706.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_sim_netlist.v"])
         + list([f"{VIVADO_PATH}/data/verilog/src/glbl.v"])

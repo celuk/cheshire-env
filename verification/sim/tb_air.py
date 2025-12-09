@@ -54,7 +54,7 @@ async def uart_monitor(dut, clk, cpu_clk, baud_rate):
     print("UART Monitor started")
     while True:
         # Wait for start bit (falling edge)
-        await FallingEdge(dut.uart_tx)
+        await FallingEdge(dut.uart_tx_o)
         # Wait half bit to sample in middle of first data bit
         #await ClockCycles(clk, half_bit)
         await Timer(half_bit_time_ns, 'ns')
@@ -64,7 +64,7 @@ async def uart_monitor(dut, clk, cpu_clk, baud_rate):
         for i in range(8):
             #await ClockCycles(clk, cycles_per_bit)
             await Timer(bit_time_ns, 'ns')
-            bit = int(dut.uart_tx.value)
+            bit = int(dut.uart_tx_o.value)
             data |= (bit << i)
 
         # Wait for stop bit

@@ -3218,6 +3218,14 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/common_verification-d4dd88aaa1a6fd2b/src/clk_rst_gen.sv">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/cva6-2d66dd46fd533439/vendor/pulp-platform/fpga-support/rtl/SyncSpRamBeNx64.sv">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -5739,14 +5747,6 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/common_verification-d4dd88aaa1a6fd2b/src/rand_stream_mst.sv">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../../cheshire/.bender/git/checkouts/common_verification-d4dd88aaa1a6fd2b/src/clk_rst_gen.sv">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>

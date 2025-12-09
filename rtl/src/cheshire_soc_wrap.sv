@@ -43,9 +43,6 @@ module cheshire_soc_wrap import cheshire_pkg::*;
 
   logic [1:0] boot_mode_i = 2'b00;
   logic test_mode = 0;
-  // UART
-  assign uart_tx_o = uart_tx;
-  logic uart_rx = program_rx_i;
   // JTAG
   logic jtag_tck;
   logic jtag_trst_n;
@@ -131,7 +128,7 @@ module cheshire_soc_wrap import cheshire_pkg::*;
   logic rtc;
   `ifdef SIM
   clk_rst_gen #(
-    .ClkPeriod    ( 30518000ns ),
+    .ClkPeriod    (100000ns), //( 30518000ns ),
     .RstClkCycles ( 5 )
   ) i_clk_rst_rtc (
     .clk_o  ( rtc ),
@@ -229,8 +226,8 @@ module cheshire_soc_wrap import cheshire_pkg::*;
     .jtag_tdi_i         ( jtag_tdi    ),
     .jtag_tdo_o         ( jtag_tdo    ),
     .jtag_tdo_oe_o      ( ),
-    .uart_tx_o          ( uart_tx ),
-    .uart_rx_i          ( uart_rx ),
+    .uart_tx_o          ( uart_tx_o ),
+    .uart_rx_i          ( program_rx_i ),
     .uart_rts_no        ( ),
     .uart_dtr_no        ( ),
     .uart_cts_ni        ( 1'b0 ),
