@@ -325,7 +325,7 @@ module cheshire_soc_wrap import cheshire_pkg::*;
     .axi_soc_req_t     ( axi_llc_req_t     ),
     .axi_soc_resp_t    ( axi_llc_rsp_t     )
   ) dram_controller (
-    .soc_resetn_i ( rst_n ),
+    .soc_resetn_i ( (rst_ni & system_reset_o & pll_locked) || uart_dram_mode ),
     .soc_clk_i    ( clkwiz_o ),
 
     .clk100       ( clk100 ),

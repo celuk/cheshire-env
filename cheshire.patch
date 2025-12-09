@@ -3870,3 +3870,16 @@ index baa9ee4..a21618c 100644
  CHS_SW_CCFLAGS ?= $(CHS_SW_FLAGS) -ggdb -mcmodel=medany -mexplicit-relocs -fno-builtin -fverbose-asm -pipe
  CHS_SW_LDFLAGS ?= $(CHS_SW_FLAGS) -nostartfiles -Wl,--gc-sections -Wl,-L$(CHS_SW_LD_DIR)
  CHS_SW_ARFLAGS ?= --plugin=$(CHS_SW_LTOPLUG)
+diff --git a/sw/tests/helloworld.c b/sw/tests/helloworld.c
+index d946624..6d744bb 100644
+--- a/sw/tests/helloworld.c
++++ b/sw/tests/helloworld.c
+@@ -13,7 +13,7 @@
+ #include "util.h"
+ 
+ int main(void) {
+-    char str[] = "Hello World!\r\n";
++    char str[] = "Hello World!\n";
+     uint32_t rtc_freq = *reg32(&__base_regs, CHESHIRE_RTC_FREQ_REG_OFFSET);
+     uint64_t reset_freq = clint_get_core_freq(rtc_freq, 2500);
+     uart_init(&__base_uart, reset_freq, __BOOT_BAUDRATE);
