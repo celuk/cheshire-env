@@ -2,7 +2,7 @@
 `define ASSERTS_OFF 1
 `define TARGET_SYNTHESIS
 
-`define DRAM_SIM
+//`define DRAM_SIM
 //`define SIM
 `define ZC706
 
