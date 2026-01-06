@@ -35,7 +35,7 @@ package cva6_config_pkg;
   localparam CVA6ConfigFetchUserEn = 0;
   localparam CVA6ConfigFetchUserWidth = CVA6ConfigXlen;
   localparam CVA6ConfigDataUserEn = 0;
-  localparam CVA6ConfigDataUserWidth = 1;
+  localparam CVA6ConfigDataUserWidth = 2;
 
   localparam CVA6ConfigIcacheByteSize = 128;
   localparam CVA6ConfigIcacheSetAssoc = 2;
@@ -127,12 +127,9 @@ package cva6_config_pkg;
       NOCType: config_pkg::NOC_TYPE_AXI4_ATOP,
       CLICNumInterruptSrc: unsigned'(256),
       // idempotent region
-      NrNonIdempotentRules:
-      unsigned'(
-      2
-      ),
-      NonIdempotentAddrBase: 1024'({64'b0, 64'b0}),
-      NonIdempotentLength: 1024'({64'b0, 64'b0}),
+      NrNonIdempotentRules: unsigned'(2),
+      NonIdempotentAddrBase: 1024'({64'h0000_0000, 64'h4000_0000}),
+      NonIdempotentLength:   1024'({64'h1000_0000, 64'h4000_0000}),
       NrExecuteRegionRules: unsigned'(3),
       //                      DRAM,          Boot ROM,   Debug Module
       ExecuteRegionAddrBase:
@@ -147,9 +144,9 @@ package cva6_config_pkg;
       ),
       CachedRegionAddrBase: 1024'({64'h8000_0000}),
       CachedRegionLength: 1024'({64'h40000000}),
-      MaxOutstandingStores: unsigned'(7),
+      MaxOutstandingStores: unsigned'(0),
       DebugEn: bit'(1),
-      NonIdemPotenceEn: bit'(0),
+      NonIdemPotenceEn: bit'(1),
       AxiBurstWriteEn: bit'(0)
   };
 

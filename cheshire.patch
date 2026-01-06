@@ -3943,7 +3943,7 @@ index 6f97ad5..25286ed 100644
              2014: data_o = 32'h00000000 /* 0x1f78 */;
              2015: data_o = 32'h00000000 /* 0x1f7c */;
 diff --git a/hw/cheshire_pkg.sv b/hw/cheshire_pkg.sv
-index 0163af7..8d7481f 100644
+index 0163af7..ee2fcb7 100644
 --- a/hw/cheshire_pkg.sv
 +++ b/hw/cheshire_pkg.sv
 @@ -543,7 +543,7 @@ package cheshire_pkg;
@@ -3986,6 +3986,17 @@ index 0163af7..8d7481f 100644
      AxiRt             : 0,
      Clic              : 0,
      IrqRouter         : 0,
+@@ -624,8 +624,8 @@ package cheshire_pkg;
+     LlcSetAssoc       : 8,
+     LlcNumLines       : 256,
+     LlcNumBlocks      : 8,
+-    LlcMaxReadTxns    : 16,
+-    LlcMaxWriteTxns   : 16,
++    LlcMaxReadTxns    : 1,
++    LlcMaxWriteTxns   : 1,
+     LlcAmoNumCuts     : 1,
+     LlcAmoPostCut     : 1,
+     LlcOutConnect     : 1,
 diff --git a/hw/cheshire_soc.sv b/hw/cheshire_soc.sv
 index b3b6254..1b72a1d 100644
 --- a/hw/cheshire_soc.sv
