@@ -117,6 +117,10 @@ show:
 gen_dramw: rmtemp
 	python3 ./tools/generate_simple_dram_writes.py -f $(ARGS)
 
+.PHONY: program
+program:
+	$(XILINX_VIVADO)/bin/vivado -mode batch -nolog -nojournal -source vivado/program_zc706.tcl -tclargs $(ARGS)
+
 .PHONY: clean
 clean:
 	-rm -rf ./build
