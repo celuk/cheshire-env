@@ -10,7 +10,7 @@ index 4c8e9b8..b6b7ecb 100644
 +*mem_init.txt
 +*.hex
 diff --git a/hw/bootrom/cheshire_bootrom.c b/hw/bootrom/cheshire_bootrom.c
-index 43bae50..66ed0c3 100644
+index 43bae50..82ae5d6 100644
 --- a/hw/bootrom/cheshire_bootrom.c
 +++ b/hw/bootrom/cheshire_bootrom.c
 @@ -33,6 +33,76 @@ int boot_passive(uint64_t core_freq) {
@@ -40,7 +40,7 @@ index 43bae50..66ed0c3 100644
 +
 +#define BOOT_HART_ID 0x0
 +
-+#define DTB_ADDRESS_OFFSET 0x01200000
++#define DTB_ADDRESS_OFFSET 0x02000000
 +#define DTB_ADDRESS (OPENSBI_BASE_ADDR + DTB_ADDRESS_OFFSET) // fw_fdt_bin (compiled dts - dtb file) address
 +
 +int boot_from_dram(uint64_t core_freq, uint64_t rtc_freq) {
@@ -101,7 +101,7 @@ index 43bae50..66ed0c3 100644
          return boot_spi_sdcard(core_freq, rtc_freq);
      case 2:
 diff --git a/hw/bootrom/cheshire_bootrom.sv b/hw/bootrom/cheshire_bootrom.sv
-index 6f97ad5..604c4ec 100644
+index 6f97ad5..48a6965 100644
 --- a/hw/bootrom/cheshire_bootrom.sv
 +++ b/hw/bootrom/cheshire_bootrom.sv
 @@ -51,7 +51,7 @@ module cheshire_bootrom #(
@@ -3593,8 +3593,8 @@ index 6f97ad5..604c4ec 100644
 +            1668: data_o = 32'hec3ee452 /* 0x1a10 */;
 +            1669: data_o = 32'hf402f002 /* 0x1a14 */;
 +            1670: data_o = 32'hf14027f3 /* 0x1a18 */;
-+            1671: data_o = 32'h40900713 /* 0x1a1c */;
-+            1672: data_o = 32'h07562781 /* 0x1a20 */;
++            1671: data_o = 32'h04100713 /* 0x1a1c */;
++            1672: data_o = 32'h07662781 /* 0x1a20 */;
 +            1673: data_o = 32'h85ba853e /* 0x1a24 */;
 +            1674: data_o = 32'h07b7860a /* 0x1a28 */;
 +            1675: data_o = 32'ha0238000 /* 0x1a2c */;
