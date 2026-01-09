@@ -39,16 +39,24 @@ module cheshire_soc_wrap import cheshire_pkg::*;
   inout  logic [1:0] ddr3_dqs_n,
   inout  logic [15:0] ddr3_dq
 `endif
-);
+
+  `ifdef JTAG
+  , input wire jtag_tck_i,
+  input wire jtag_tms_i,
+  input wire jtag_tdi_i,
+  output wire jtag_tdo_o
+  `endif
+  );
 
   logic [1:0] boot_mode_i = 2'b00;
   logic test_mode = 0;
   // JTAG
-  logic jtag_tck;
-  logic jtag_trst_n;
-  logic jtag_tms;
-  logic jtag_tdi;
+  logic jtag_tck = jtag_tck_i;
+  logic jtag_trst_n = 1'b1;
+  logic jtag_tms = jtag_tms_i;
+  logic jtag_tdi = jtag_tdi_i;
   logic jtag_tdo;
+  assign jtag_tdo_o = jtag_tdo;
   // I2C
   logic i2c_sda;
   logic i2c_scl;

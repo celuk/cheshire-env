@@ -25,6 +25,17 @@ set_property IOSTANDARD LVCMOS15 [get_ports prog_mode_led_o]
 set_property PACKAGE_PIN AJ13 [get_ports rst_ni]
 set_property IOSTANDARD LVCMOS25 [get_ports rst_ni]
 
+## JTAG
+set_property PACKAGE_PIN AA13 [get_ports jtag_tdo_o]
+set_property IOSTANDARD LVCMOS25 [get_ports jtag_tdo_o]
+set_property PACKAGE_PIN AK13 [get_ports jtag_tck_i]
+set_property IOSTANDARD LVCMOS25 [get_ports jtag_tck_i]
+set_property PACKAGE_PIN AK12 [get_ports jtag_tms_i]
+set_property IOSTANDARD LVCMOS25 [get_ports jtag_tms_i]
+set_property PACKAGE_PIN AH18 [get_ports jtag_tdi_i]
+set_property IOSTANDARD LVCMOS25 [get_ports jtag_tdi_i]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets jtag_tck_i_IBUF]
+
 ## DDR3
 ## ref: https://github.com/CMU-SAFARI/PiDRAM/blob/master/controller-hardware/sources/new_ZC706.xdc
 
