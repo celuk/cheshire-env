@@ -40,23 +40,40 @@ module cheshire_soc_wrap import cheshire_pkg::*;
   inout  logic [15:0] ddr3_dq
 `endif
 
-  `ifdef JTAG
-  , input wire jtag_tck_i,
-  input wire jtag_tms_i,
-  input wire jtag_tdi_i,
-  output wire jtag_tdo_o
-  `endif
+  //`ifdef JTAG
+  //, input wire jtag_tck_i,
+  //input wire jtag_tms_i,
+  //input wire jtag_tdi_i,
+  //output wire jtag_tdo_o
+  //`endif
   );
 
   logic [1:0] boot_mode_i = 2'b00;
   logic test_mode = 0;
   // JTAG
-  logic jtag_tck = jtag_tck_i;
-  logic jtag_trst_n = 1'b1;
-  logic jtag_tms = jtag_tms_i;
-  logic jtag_tdi = jtag_tdi_i;
+  wire bscan_tck, bscan_tms, bscan_tdi, bscan_tdo, bscan_reset, bscan_shift, bscan_capture, bscan_update;
+  
+  BSCANE2 #(
+      .JTAG_CHAIN(2) // User Chain 2
+  ) u_debug_bridge (
+      .CAPTURE(),
+      .DRCK(),
+      .RESET(bscan_reset),
+      .RUNTEST(),
+      .SEL(),
+      .SHIFT(),
+      .TCK(bscan_tck),
+      .TDI(bscan_tdi),
+      .TMS(bscan_tms),
+      .UPDATE(),
+      .TDO(bscan_tdo)
+  );
+  logic jtag_tck = bscan_tck;
+  logic jtag_trst_n = ~bscan_reset; //1'b1;
+  logic jtag_tms = bscan_tms;
+  logic jtag_tdi = bscan_tdi;
   logic jtag_tdo;
-  assign jtag_tdo_o = jtag_tdo;
+  assign bscan_tdo = jtag_tdo;
   // I2C
   logic i2c_sda;
   logic i2c_scl;
