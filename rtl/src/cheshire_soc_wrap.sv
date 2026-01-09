@@ -51,25 +51,10 @@ module cheshire_soc_wrap import cheshire_pkg::*;
   logic [1:0] boot_mode_i = 2'b00;
   logic test_mode = 0;
   // JTAG
-  wire bscan_tck, bscan_tms, bscan_tdi, bscan_tdo, bscan_reset, bscan_shift, bscan_capture, bscan_update;
+  wire bscan_tck, bscan_tms, bscan_tdi, bscan_tdo;
   
-  BSCANE2 #(
-      .JTAG_CHAIN(2) // User Chain 2
-  ) u_debug_bridge (
-      .CAPTURE(),
-      .DRCK(),
-      .RESET(bscan_reset),
-      .RUNTEST(),
-      .SEL(),
-      .SHIFT(),
-      .TCK(bscan_tck),
-      .TDI(bscan_tdi),
-      .TMS(bscan_tms),
-      .UPDATE(),
-      .TDO(bscan_tdo)
-  );
   logic jtag_tck = bscan_tck;
-  logic jtag_trst_n = ~bscan_reset; //1'b1;
+  logic jtag_trst_n = 1'b1;
   logic jtag_tms = bscan_tms;
   logic jtag_tdi = bscan_tdi;
   logic jtag_tdo;
@@ -134,6 +119,17 @@ module cheshire_soc_wrap import cheshire_pkg::*;
      wire clkwiz_o = clk_i;
      wire rst_n = rst_ni & system_reset_o;
   `endif
+
+  xilinx_jtag_bridge #(
+    .JTAG_CHAIN ( 2 )
+  ) ujtag_bridge (
+    .clk_i   ( clkwiz_o      ),
+    .rst_ni  ( rst_n         ),
+    .tck_o   ( bscan_tck     ),
+    .tms_o   ( bscan_tms     ),
+    .tdi_o   ( bscan_tdi     ),
+    .tdo_i   ( bscan_tdo     )
+  );
 
   uart_programmer up_dram (
      .clk_i(clkwiz_o),
