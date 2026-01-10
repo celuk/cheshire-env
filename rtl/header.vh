@@ -9,5 +9,3 @@
 `define CPU_CLK 50_000_000
 `define BAUD_RATE 115200
 `define DDR_MHZ 50
-
-`define JTAG
