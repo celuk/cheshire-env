@@ -1,6 +1,7 @@
 open_hw_manager
 connect_hw_server
-open_hw_target
+#open_hw_target
+open_hw_target {localhost:3121/xilinx_tcf/Digilent/210251A01281}
 
 if { $argc > 0 } {
     set bitstream_file [lindex $argv 0]
