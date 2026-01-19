@@ -130,6 +130,14 @@ program_linux:
 	$(MAKE) program ARGS="/home/shc/projects/cheshire-env/vivado/cheshire_zc706/cheshire_zc706.runs/impl_1/cheshire_soc_wrap.bit"
 	python3 tools/uart_send_data_to_dram.py -f /home/shc/projects/cheshire-linux/riscv-opensbi-port/build/platform/template/firmware/fw_dynamic.hex -p /dev/ttyUSB$(ARGS)
 
+.PHONY: jtag
+jtag:
+	/media/shc/0EDEBC4906059163/tools/riscv-openocd/src/openocd -f verification/jtag/debug_soc.cfg
+
+PHONY: gdb
+gdb:
+	/home/shc/projects/cheshire-linux-nvdla/riscv-toolchain-custom/_install/bin/riscv64-unknown-elf-gdb -ex "target remote :3333"
+
 .PHONY: clean
 clean:
 	-rm -rf ./build
